@@ -18,11 +18,11 @@ export default function Home() {
   return (
     <main id="main-content">
       <Hero />
+      <FeaturedProducts />
       <SocialProof />
       <TrustBar />
       <About />
       <FounderStory />
-      <FeaturedProducts />
       <DeliveryAreas />
       <WhyChoose />
       <Process />
