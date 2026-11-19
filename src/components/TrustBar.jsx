@@ -10,13 +10,13 @@ const items = [
 
 export default function TrustBar() {
   return (
-    <section className="bg-brand-green py-5">
+    <section className="bg-brand-green py-3 sm:py-5">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-10 lg:gap-16">
+        <div aria-label="Dharadi product values — scroll horizontally" className="flex flex-nowrap min-w-0 overflow-x-auto overscroll-x-contain gap-5 sm:gap-10 lg:gap-16 sm:flex-wrap sm:justify-center dharadi-swipe-rail">
           {items.map(({ icon: Icon, label }) => (
             <div
               key={label}
-              className="flex items-center gap-2.5 text-brand-cream/95"
+              className="flex shrink-0 items-center gap-2 text-brand-cream/95"
             >
               <Icon size={18} strokeWidth={1.5} />
               <span className="text-[11px] sm:text-sm font-medium tracking-wide uppercase">

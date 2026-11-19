@@ -66,6 +66,10 @@
   }
 }
 
+/* Native horizontal swiping on phones, with no clipped card text. */
+.dharadi-swipe-rail { scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.dharadi-swipe-rail::-webkit-scrollbar { display: none; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .section-fade-in { animation: none; opacity: 1; transform: none; }
