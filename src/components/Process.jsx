@@ -42,7 +42,7 @@ export default function Process() {
         </AnimateSection>
         <div className="relative">
           <div className="hidden lg:block absolute top-8 left-0 right-0 h-px bg-brand-green/20" />
-          <div className="grid min-w-0 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-4">
+          <div className="grid min-w-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-4">
             {steps.map((step, i) => (
               <AnimateSection key={step.num} delay={i * 0.08} className="relative">
                 <div className="text-center lg:text-left">

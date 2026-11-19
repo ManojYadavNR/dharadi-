@@ -15,7 +15,7 @@ export default function Footer() {
   return (
     <footer className="bg-brand-green text-brand-cream">
       <div className="max-w-7xl mx-auto px-5 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <div className="grid min-w-0 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-8 mb-10 sm:mb-14">
+        <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-8 mb-10 sm:mb-14">
           <div className="lg:col-span-1">
             <Logo size="lg" variant="onDark" className="mb-5" />
             <h3 className="font-heading text-2xl tracking-wide mb-1">DHARADI</h3>

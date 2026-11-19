@@ -21,7 +21,7 @@ export default function Shop() {
             Premium products from honest farmers, delivered to your door.
           </p>
         </AnimateSection>
-        <div className="grid min-w-0 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid min-w-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {products.map((product, i) => (
             <AnimateSection key={product.id} delay={i * 0.05}>
               <ProductCard product={product} onQuickView={setQuickView} />

@@ -17,7 +17,7 @@ export default function ProductBenefits() {
             Explore what makes each Dharadi product special.
           </p>
         </AnimateSection>
-        <div className="grid min-w-0 lg:grid-cols-2 gap-6 sm:gap-10 items-center">
+        <div className="grid min-w-0 grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 items-center">
           <div className="flex min-w-0 flex-wrap gap-2 sm:gap-3">
             {products.map((p, i) => (
               <button

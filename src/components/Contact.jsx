@@ -93,7 +93,7 @@ export default function Contact() {
             orders and delivery across Chintamani, Bengaluru, and Kolar.
           </p>
         </AnimateSection>
-        <div className="grid min-w-0 md:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
+        <div className="grid min-w-0 grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
           {items.map(({ icon: Icon, title, content }) => (
             <AnimateSection key={title}>
               <div className="min-w-0 bg-brand-cream rounded-2xl p-5 sm:p-8 border border-brand-green/10 h-full">
