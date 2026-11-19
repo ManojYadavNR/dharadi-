@@ -17,12 +17,17 @@
   }
 
   body {
+    min-width: 0;
     overflow-x: clip;
     font-family: var(--font-body);
     color: var(--color-brand-dark);
     background-color: var(--color-brand-cream);
     -webkit-font-smoothing: antialiased;
   }
+
+  img, svg, video { max-width: 100%; }
+
+  [id] { scroll-margin-top: 6rem; }
 
   h1,
   h2,
@@ -64,4 +69,10 @@
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .section-fade-in { animation: none; opacity: 1; transform: none; }
+}
+
+/* Narrow devices: let long headings and labels wrap rather than widen the viewport. */
+@media (max-width: 639px) {
+  h1, h2, h3, h4 { overflow-wrap: break-word; }
+  button, input, textarea { max-width: 100%; }
 }

@@ -30,7 +30,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-20 lg:py-28 bg-brand-green-light/40">
+    <section className="py-12 sm:py-20 lg:py-28 bg-brand-green-light/40">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center max-w-2xl mx-auto mb-14 lg:mb-20">
           <span className="text-brand-gold text-sm font-medium tracking-widest uppercase">
@@ -42,7 +42,7 @@ export default function Process() {
         </AnimateSection>
         <div className="relative">
           <div className="hidden lg:block absolute top-8 left-0 right-0 h-px bg-brand-green/20" />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-4">
+          <div className="grid min-w-0 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8 lg:gap-4">
             {steps.map((step, i) => (
               <AnimateSection key={step.num} delay={i * 0.08} className="relative">
                 <div className="text-center lg:text-left">

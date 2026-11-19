@@ -35,7 +35,7 @@ const images = [
 
 export default function Instagram() {
   return (
-    <section className="py-20 lg:py-28 bg-brand-cream">
+    <section className="py-12 sm:py-20 lg:py-28 bg-brand-cream">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center mb-12">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
@@ -54,7 +54,7 @@ export default function Instagram() {
             Fresh updates from our farms, products, and community.
           </p>
         </AnimateSection>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="grid min-w-0 grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
           {images.map((src, i) => (
             <a
               key={i}

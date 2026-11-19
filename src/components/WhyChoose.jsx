@@ -43,7 +43,7 @@ const cards = [
 
 export default function WhyChoose() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
+    <section className="py-12 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center max-w-2xl mx-auto mb-14 lg:mb-16">
           <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-dark">
@@ -53,7 +53,7 @@ export default function WhyChoose() {
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {cards.map((card, i) => (
             <AnimateSection key={card.title} delay={i * 0.05}>
-              <div className="bg-brand-cream rounded-2xl p-8 border border-brand-green/10 hover:border-brand-green/25 hover:-translate-y-1 transition-all duration-300 h-full">
+              <div className="bg-brand-cream rounded-2xl p-5 sm:p-8 border border-brand-green/10 hover:border-brand-green/25 hover:-translate-y-1 transition-all duration-300 h-full">
                 <card.icon
                   size={28}
                   strokeWidth={1.5}

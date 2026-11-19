@@ -2,7 +2,7 @@ import AnimateSection from "./AnimateSection";
 
 export default function BrandIntention() {
   return (
-    <section className="py-24 lg:py-32 bg-brand-green relative overflow-hidden">
+    <section className="py-14 sm:py-24 lg:py-32 bg-brand-green relative overflow-hidden">
       <div className="absolute inset-0 leaf-pattern opacity-30" />
       <div className="relative max-w-4xl mx-auto px-5 lg:px-8 text-center">
         <AnimateSection>

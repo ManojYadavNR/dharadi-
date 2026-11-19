@@ -11,7 +11,7 @@ export default function ProductCard({ product, onQuickView }) {
   );
 
   return (
-    <article className="group bg-brand-cream rounded-2xl border border-brand-green/15 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col">
+    <article className="group min-w-0 bg-brand-cream rounded-2xl border border-brand-green/15 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-lg flex flex-col">
       <button
         type="button"
         onClick={() => onQuickView(product)}
@@ -28,8 +28,8 @@ export default function ProductCard({ product, onQuickView }) {
           }}
         />
       </button>
-      <div className="p-6 lg:p-7 flex flex-col flex-1">
-        <h3 className="font-heading text-xl text-brand-dark mb-2">{product.name}</h3>
+      <div className="p-5 sm:p-6 lg:p-7 flex flex-col flex-1 min-w-0">
+        <h3 className="font-heading text-xl text-brand-dark mb-2 break-words">{product.name}</h3>
         <p className="text-brand-muted text-sm leading-relaxed mb-4 flex-1">
           {product.shortDesc}
         </p>

@@ -7,11 +7,11 @@ export default function Hero() {
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center pt-24 lg:pt-28 leaf-pattern overflow-hidden"
+      className="relative min-h-[100svh] flex items-center pt-24 lg:pt-28 leaf-pattern overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-brand-cream via-brand-cream to-brand-green-light/40" />
       <div className="relative max-w-7xl mx-auto px-5 lg:px-8 py-10 sm:py-16 lg:py-24 w-full">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+        <div className="grid min-w-0 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
           <AnimateSection>
             <p className="font-heading text-brand-green text-lg lg:text-xl italic mb-4">
               From Soil to Soul
@@ -19,7 +19,7 @@ export default function Hero() {
             <p className="text-brand-muted text-sm mb-6 max-w-md">
               Because what you eat shapes how you live.
             </p>
-            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-brand-dark leading-tight mb-6">
+            <h1 className="font-heading text-3xl min-[375px]:text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-semibold text-brand-dark leading-tight mb-6">
               Pure Food From Honest Farmers
             </h1>
             <p className="text-brand-muted text-base lg:text-lg leading-relaxed max-w-xl mb-6">
@@ -32,7 +32,7 @@ export default function Hero() {
               <br />
               We are here to rebuild trust in what people eat.
             </p>
-            <div className="flex flex-wrap gap-4 mb-10">
+            <div className="flex flex-wrap gap-3 sm:gap-4 mb-10">
               <a
                 href={whatsappOrderUrl()}
                 target="_blank"
@@ -44,13 +44,13 @@ export default function Hero() {
               <PrimaryButton href="/shop">Shop Now</PrimaryButton>
               <SecondaryButton href="#about">Explore Our Story</SecondaryButton>
             </div>
-            <p className="text-xs sm:text-sm text-brand-muted tracking-widest uppercase">
+            <p className="text-xs sm:text-sm text-brand-muted tracking-wider sm:tracking-widest uppercase leading-relaxed">
               100% Natural · Farm Fresh · Chemical-Free · Sustainably Sourced
             </p>
           </AnimateSection>
 
           <AnimateSection delay={0.15} className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-lg border border-brand-green/10 aspect-[4/5] max-h-[600px]">
+            <div className="relative w-full min-w-0 rounded-3xl overflow-hidden shadow-lg border border-brand-green/10 aspect-[4/5] max-h-[600px]">
               <img
                 src={feed4}
                 alt="Fresh natural produce from Dharadi farms"

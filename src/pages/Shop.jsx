@@ -8,7 +8,7 @@ export default function Shop() {
   const [quickView, setQuickView] = useState(null);
 
   return (
-    <main className="pt-28 lg:pt-32 pb-20 bg-brand-cream min-h-screen">
+    <main className="pt-28 lg:pt-32 pb-20 bg-brand-cream min-h-screen min-w-0">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center max-w-2xl mx-auto mb-14">
           <span className="text-brand-gold text-sm font-medium tracking-widest uppercase">
@@ -21,7 +21,7 @@ export default function Shop() {
             Premium products from honest farmers, delivered to your door.
           </p>
         </AnimateSection>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid min-w-0 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {products.map((product, i) => (
             <AnimateSection key={product.id} delay={i * 0.05}>
               <ProductCard product={product} onQuickView={setQuickView} />

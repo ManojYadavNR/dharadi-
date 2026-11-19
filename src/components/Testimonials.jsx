@@ -21,7 +21,7 @@ const reviews = [
 
 export default function Testimonials() {
   return (
-    <section className="py-20 lg:py-28 bg-white">
+    <section className="py-12 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center mb-12 lg:mb-14">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
@@ -31,7 +31,7 @@ export default function Testimonials() {
         <div className="grid md:grid-cols-3 gap-6 lg:gap-8">
           {reviews.map((review, i) => (
             <AnimateSection key={review.author} delay={i * 0.08}>
-              <article className="bg-brand-cream rounded-3xl p-8 lg:p-10 border border-brand-green/10 h-full flex flex-col text-center">
+              <article className="bg-brand-cream rounded-3xl p-5 sm:p-8 lg:p-10 border border-brand-green/10 h-full flex flex-col text-center">
                 <Quote
                   size={32}
                   className="text-brand-gold/50 mx-auto mb-5"
