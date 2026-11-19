@@ -15,10 +15,10 @@ async function ready() {
   for (let attempt = 0; attempt < 40; attempt++) {
     if (server.exitCode !== null) throw new Error(`Preview exited: ${logs}`);
     try {
-      const r = await fetch(origin);
-      if (r.ok) return;
+      const response = await fetch(origin);
+      if (response.ok) return;
     } catch {
-      // Local preview is still starting.
+      // The local preview is starting.
     }
     await delay(250);
   }
@@ -30,23 +30,26 @@ try {
   await ready();
   browser = await chromium.launch({ headless: true, args: ["--no-sandbox"] });
   const widths = [320, 360, 375, 390, 414, 540, 640, 768, 820, 1024, 1280, 1440, 1920];
+
   for (const route of ["/", "/shop", "/checkout"]) {
+    const page = await browser.newPage({ viewport: { width: 320, height: 800 } });
+    page.setDefaultTimeout(5000);
+    await page.route("**/*", (request) => {
+      const target = request.request().url();
+      if (/^https?:/.test(target) && !target.startsWith(origin)) return request.abort();
+      return request.continue();
+    });
+    await page.goto(origin + route, { waitUntil: "domcontentloaded", timeout: 10000 });
+    await page.locator("#root").waitFor({ state: "visible", timeout: 5000 });
+    console.log(`Loaded ${route}`);
+
     for (const width of widths) {
-      const page = await browser.newPage({ viewport: { width, height: 800 }, deviceScaleFactor: 1 });
-      // Test local layouts deterministically without third-party font/image delays.
-      await page.route("**/*", (request) => {
-        const target = request.request().url();
-        if (/^https?:/.test(target) && !target.startsWith(origin)) return request.abort();
-        return request.continue();
-      });
-      await page.goto(origin + route, { waitUntil: "domcontentloaded", timeout: 15000 });
-      await page.locator("#root").waitFor({ state: "visible", timeout: 10000 });
-      await page.waitForTimeout(200);
+      await page.setViewportSize({ width, height: 800 });
+      await page.waitForTimeout(120);
       const result = await page.evaluate(() => ({
         scroll: document.documentElement.scrollWidth,
         client: document.documentElement.clientWidth,
         viewport: innerWidth,
-        heading: document.querySelector("h1")?.textContent?.trim(),
       }));
       if (result.scroll > result.client + 2) {
         const offenders = await page.evaluate(() =>
@@ -55,38 +58,36 @@ try {
               const r = node.getBoundingClientRect();
               return {
                 tag: node.tagName.toLowerCase(),
-                classes: typeof node.className === "string" ? node.className.slice(0, 110) : "",
-                text: node.textContent?.trim().slice(0, 44),
+                classes: typeof node.className === "string" ? node.className.slice(0, 95) : "",
+                text: node.textContent?.trim().slice(0, 32),
                 left: Math.round(r.left),
                 right: Math.round(r.right),
-                width: Math.round(r.width),
               };
             })
-            .filter((r) => r.right > innerWidth + 2 && r.width > 0)
+            .filter((r) => r.right > innerWidth + 2)
             .sort((a, b) => b.right - a.right)
-            .slice(0, 12)
+            .slice(0, 8)
         );
-        console.error("Overflow culprits:", JSON.stringify(offenders, null, 2));
+        console.error("Overflow culprits:", JSON.stringify(offenders));
       }
       assert.ok(
         result.scroll <= result.client + 2,
-        `${route} at ${width}px overflows: doc ${result.scroll}px vs client ${result.client}px`
+        `${route} at ${width}px overflows: document ${result.scroll}px vs viewport ${result.client}px`
       );
       if (route === "/" && width === 375) {
-        const toggle = page.getByRole("button", { name: "Open menu" });
-        await toggle.click();
-        assert.equal(await page.locator("#mobile-navigation").isVisible(), true, "Mobile menu is not visible");
+        await page.getByRole("button", { name: "Open menu" }).click();
+        assert.equal(await page.locator("#mobile-navigation").isVisible(), true);
         await page.getByRole("button", { name: "Close menu" }).click();
-        assert.equal(await page.locator("#mobile-navigation").count(), 0, "Mobile menu did not close");
+        assert.equal(await page.locator("#mobile-navigation").count(), 0);
       }
       if (route === "/" && width === 1024) {
-        assert.equal(await page.getByRole("button", { name: "Open menu" }).count(), 1, "Tablet navigation missing");
+        assert.equal(await page.getByRole("button", { name: "Open menu" }).count(), 1);
       }
-      console.log(`PASS ${route} ${width}px | viewport ${result.viewport}px`);
-      await page.close();
+      console.log(`PASS ${route} at ${width}px`);
     }
+    await page.close();
   }
-  console.log("All viewport overflow and navigation checks passed.");
+  console.log("All 39 route-and-viewport checks passed.");
 } finally {
   await browser?.close();
   server.kill("SIGTERM");
