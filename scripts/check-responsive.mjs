@@ -118,13 +118,26 @@ try {
     "Why families trust Dharadi — swipe horizontally",
     "Our process steps — swipe horizontally",
     "Customer reviews — swipe horizontally",
-    "Our Journey — swipe horizontally",
+    "Follow Our Journey — swipe horizontally",
     "Get in Touch — swipe horizontally",
   ]) {
     const rail = mobile.getByLabel(label);
     const metrics = await rail.evaluate(el => ({ visible: el.clientWidth, total: el.scrollWidth }));
     assert.ok(metrics.total > metrics.visible + 10, `Expected swipe rail for ${label}`);
   }
+  // The founder story must be normal, readable narrative text — never a swipe rail.
+  const founderStory = mobile.locator("#founder");
+  assert.equal(await founderStory.getByLabel("Our Journey — swipe horizontally").count(), 0, "Founder story should not scroll horizontally");
+  const narrative = founderStory.locator("p").filter({ hasText: "Growing up in Nayindralli village" }).first();
+  assert.equal(await narrative.isVisible(), true, "Founder narrative should remain visible as regular text");
+  const gallery = mobile.getByLabel("Follow Our Journey — swipe horizontally");
+  assert.equal(await gallery.locator("a").count(), 6, "All six Instagram gallery images must remain");
+  const galleryStyle = await gallery.evaluate(el => ({ display: getComputedStyle(el).display, width: el.clientWidth, scroll: el.scrollWidth }));
+  assert.equal(galleryStyle.display, "flex", "Instagram gallery should be a single horizontal row on mobile");
+  assert.ok(galleryStyle.scroll > galleryStyle.width + 10);
+  await mobile.setViewportSize({ width: 1280, height: 800 });
+  assert.equal(await gallery.evaluate(el => getComputedStyle(el).display), "grid", "Desktop Instagram grid must be preserved");
+  await mobile.setViewportSize({ width: 390, height: 844 });
   assert.equal(await mobile.locator("#products article").count(), 5);
   assert.ok(await mobile.getByText("Every product is carefully selected and processed.").count() > 0, "Trust section copy should remain intact");
   assert.ok(await mobile.getByText("Harvested at peak freshness.").count() > 0, "Process text should remain intact");
