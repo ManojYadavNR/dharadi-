@@ -21,6 +21,8 @@ jobs:
         run: npm run lint -- --ignore-pattern src/context/CartContext.jsx
       - name: Build and validate prerendered SEO pages
         run: npm run build
+      - name: Verify product sizes and unchanged prices
+        run: node scripts/check-catalog.mjs
       - name: Install browser test runner
         run: |
           npm install --no-save playwright@1.56.1
