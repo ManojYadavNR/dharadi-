@@ -33,7 +33,13 @@ try {
   for (const route of ["/", "/shop", "/checkout"]) {
     for (const width of widths) {
       const page = await browser.newPage({ viewport: { width, height: 800 }, deviceScaleFactor: 1 });
-      await page.goto(origin + route, { waitUntil: "domcontentloaded" });
+      // Test local layouts deterministically without third-party font/image delays.
+      await page.route("**/*", (request) => {
+        const target = request.request().url();
+        if (/^https?:/.test(target) && !target.startsWith(origin)) return request.abort();
+        return request.continue();
+      });
+      await page.goto(origin + route, { waitUntil: "domcontentloaded", timeout: 15000 });
       await page.locator("#root").waitFor({ state: "visible", timeout: 10000 });
       await page.waitForTimeout(200);
       const result = await page.evaluate(() => ({
