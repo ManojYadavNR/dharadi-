@@ -45,7 +45,7 @@ export default function Process() {
           <p className="lg:hidden text-xs text-brand-muted mb-3" aria-hidden="true">Swipe through our process →</p>
           <div aria-label="Our process steps — swipe horizontally" className="flex min-w-0 overflow-x-auto snap-x snap-mandatory overscroll-x-contain gap-3 pb-3 -mr-5 pr-5 lg:mr-0 lg:pr-0 lg:pb-0 lg:grid lg:grid-cols-5 lg:gap-4 dharadi-swipe-rail">
             {steps.map((step, i) => (
-              <AnimateSection key={step.num} delay={i * 0.08} className="relative w-[68vw] max-w-[270px] shrink-0 snap-start rounded-2xl bg-white/70 border border-brand-green/10 p-3 lg:w-auto lg:max-w-none lg:shrink lg:rounded-none lg:bg-transparent lg:border-0 lg:p-0">
+              <AnimateSection key={step.num} delay={i * 0.08} className="relative w-[68vw] max-w-[270px] shrink-0 snap-start rounded-2xl bg-brand-cream border border-brand-green/10 p-3 lg:w-auto lg:max-w-none lg:shrink lg:rounded-none lg:bg-transparent lg:border-0 lg:p-0">
                 <div className="flex items-start gap-3 text-left lg:block">
                   <div className="inline-flex shrink-0 items-center justify-center w-10 h-10 lg:w-16 lg:h-16 rounded-full bg-brand-green text-brand-cream font-heading text-base lg:text-xl lg:mb-5 relative z-10">
                     {step.num}
