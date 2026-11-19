@@ -12,7 +12,7 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-br from-brand-cream via-brand-cream to-brand-green-light/40" />
       <div className="relative max-w-7xl mx-auto px-5 lg:px-8 py-6 sm:py-10 lg:py-24 w-full">
         <div className="grid min-w-0 grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:grid-cols-2 gap-3 sm:gap-8 lg:gap-16 items-center">
-          <AnimateSection className="min-w-0">
+          <AnimateSection immediate className="min-w-0">
             <p className="font-heading text-brand-green text-xs sm:text-base lg:text-xl italic mb-2 lg:mb-4">
               From Soil to Soul
             </p>
@@ -49,7 +49,7 @@ export default function Hero() {
             </p>
           </AnimateSection>
 
-          <AnimateSection delay={0.15} className="relative min-w-0">
+          <AnimateSection immediate delay={0.15} className="relative min-w-0">
             <div className="relative w-full min-w-0 rounded-2xl sm:rounded-3xl overflow-hidden shadow-lg border border-brand-green/10 aspect-[3/4] sm:aspect-[4/5] max-h-[600px]">
               <img
                 src={feed4}
@@ -67,19 +67,11 @@ export default function Hero() {
             </div>
           </AnimateSection>
         </div>
-        <div className="lg:hidden mt-3">
-          <p className="text-xs text-brand-muted">Because what you eat shapes how you live.</p>
-          <details className="mt-2 text-xs text-brand-muted group">
-            <summary className="cursor-pointer text-brand-green font-medium list-none inline-flex items-center gap-1">
-              More about Dharadi <span aria-hidden="true" className="group-open:rotate-180 transition-transform">⌄</span>
-            </summary>
-            <div className="mt-2 space-y-2 leading-relaxed">
-              <p>At Dharadi, we bring nature&apos;s finest products directly from trusted farms to your home — fresh, chemical-free, and crafted for healthier living.</p>
-              <p>We are not here to sell food.<br />We are here to rebuild trust in what people eat.</p>
-              <p>100% Natural · Farm Fresh · Chemical-Free · Sustainably Sourced</p>
-              <a href="#about" className="inline-block font-medium text-brand-green underline underline-offset-2">Explore Our Story</a>
-            </div>
-          </details>
+        <div className="lg:hidden mt-3 space-y-1.5 text-[11px] min-[375px]:text-xs leading-relaxed text-brand-muted">
+          <p>Because what you eat shapes how you live.</p>
+          <p>At Dharadi, we bring nature&apos;s finest products directly from trusted farms to your home — fresh, chemical-free, and crafted for healthier living.</p>
+          <p className="font-heading font-medium text-brand-green">We are not here to sell food. We are here to rebuild trust in what people eat.</p>
+          <p className="text-[10px] min-[375px]:text-[11px]">100% Natural · Farm Fresh · Chemical-Free · Sustainably Sourced</p>
         </div>
         <div className="lg:hidden flex flex-wrap items-center gap-2 sm:gap-3 mt-3">
           <a
