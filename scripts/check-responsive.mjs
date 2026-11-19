@@ -42,6 +42,26 @@ try {
         viewport: innerWidth,
         heading: document.querySelector("h1")?.textContent?.trim(),
       }));
+      if (result.scroll > result.client + 2) {
+        const offenders = await page.evaluate(() =>
+          [...document.querySelectorAll("body *")]
+            .map((node) => {
+              const r = node.getBoundingClientRect();
+              return {
+                tag: node.tagName.toLowerCase(),
+                classes: typeof node.className === "string" ? node.className.slice(0, 110) : "",
+                text: node.textContent?.trim().slice(0, 44),
+                left: Math.round(r.left),
+                right: Math.round(r.right),
+                width: Math.round(r.width),
+              };
+            })
+            .filter((r) => r.right > innerWidth + 2 && r.width > 0)
+            .sort((a, b) => b.right - a.right)
+            .slice(0, 12)
+        );
+        console.error("Overflow culprits:", JSON.stringify(offenders, null, 2));
+      }
       assert.ok(
         result.scroll <= result.client + 2,
         `${route} at ${width}px overflows: doc ${result.scroll}px vs client ${result.client}px`
