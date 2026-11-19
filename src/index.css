@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-green: #355e3b;
+  --color-brand-cream: #f8f3ea;
+  --color-brand-gold: #c8a96b;
+  --color-brand-dark: #2d2d2d;
+  --color-brand-muted: #6b6b6b;
+  --color-brand-green-light: #e8f0e9;
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-body: "Poppins", system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+    color: var(--color-brand-dark);
+    background-color: var(--color-brand-cream);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-heading);
+  }
+}
+
+@layer utilities {
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  .font-body {
+    font-family: var(--font-body);
+  }
+
+  .leaf-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 5c-2 8-8 14-8 22 0 6 4 10 8 10s8-4 8-10c0-8-6-14-8-22z' fill='%23355E3B' fill-opacity='0.03'/%3E%3C/svg%3E");
+  }
+
+  .section-fade-in {
+    animation: fadeInUp 0.7s ease-out forwards;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
