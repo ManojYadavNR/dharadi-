@@ -161,10 +161,13 @@ try {
   await select.selectOption("100g");
   assert.equal(await moringa.getByText("Sample price · confirm before purchase").count(), 1);
   assert.equal(await moringa.getByText("₹119").count(), 1);
+  assert.equal(await moringa.locator("del").getByText("₹149").count(), 1, "100g original price must be struck through");
   assert.equal(await moringa.getByRole("button", { name: "Add to Cart" }).count(), 0);
   const message = await moringa.getByRole("link", { name: "Confirm on WhatsApp" }).getAttribute("href");
   assert.ok(decodeURIComponent(message).includes("Moringa Powder (100g)"));
   await select.selectOption("500g");
+  assert.equal(await moringa.getByText("₹399").count(), 1, "500g discounted selling price should be visible");
+  assert.equal(await moringa.locator("del").getByText("₹499").count(), 1, "500g actual price must be struck through");
   assert.equal(await moringa.getByText("Units", { exact: true }).count(), 0, "Units should not appear on product cards");
   assert.equal(await moringa.getByRole("button", { name: /Increase units/ }).count(), 0, "Product quantities belong in the cart");
   await moringa.getByRole("button", { name: "Add to Cart" }).click();
@@ -174,6 +177,11 @@ try {
   await drawer.getByRole("button", { name: "Increase" }).click();
   assert.equal(await drawer.getByText("2", { exact: true }).count(), 1, "Cart should let customers increase units");
   assert.equal(await drawer.getByText("₹798").count(), 1);
+  assert.equal(await drawer.locator("del").getByText("₹499").count(), 1, "Cart original unit price must be struck through");
+  await drawer.getByRole("link", { name: "Checkout" }).click();
+  await shopPage.getByText("Order Summary").waitFor();
+  assert.equal(await shopPage.getByRole("button", { name: "Place Order — ₹798" }).count(), 1, "Checkout must charge discounted total, not original");
+  assert.equal(await shopPage.locator("del").getByText("₹998").count(), 1, "Checkout must strike through original extended total");
   await shopPage.close();
   console.log("Product sizes, sample prices, and cart-only quantities passed.");
 
