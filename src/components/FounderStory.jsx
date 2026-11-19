@@ -62,6 +62,8 @@ export default function FounderStory() {
               <img
                 src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=700&q=80&auto=format&fit=crop"
                 alt="Rural farming in Nayindralli village"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>

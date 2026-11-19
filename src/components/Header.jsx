@@ -56,7 +56,7 @@ export default function Header({ onSearchOpen }) {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center gap-1 sm:gap-3">
             <button
               type="button"
               onClick={onSearchOpen}
@@ -88,7 +88,9 @@ export default function Header({ onSearchOpen }) {
               type="button"
               className="lg:hidden p-2.5 rounded-xl text-brand-green"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="Menu"
+              aria-label={mobileOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -96,7 +98,7 @@ export default function Header({ onSearchOpen }) {
         </div>
 
         {mobileOpen && (
-          <nav className="lg:hidden pb-6 flex flex-col gap-1 border-t border-brand-green/10 pt-4">
+          <nav id="mobile-navigation" className="lg:hidden pb-6 flex flex-col gap-1 border-t border-brand-green/10 pt-4 max-h-[calc(100dvh-5rem)] overflow-y-auto">
             {navLinks.map((link) => (
               <a
                 key={link.label}

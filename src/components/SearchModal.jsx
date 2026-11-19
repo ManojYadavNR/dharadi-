@@ -27,7 +27,7 @@ export default function SearchModal({ isOpen, onClose }) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-24 px-4">
+        <div className="fixed inset-0 z-[100] flex items-start justify-center pt-20 sm:pt-24 px-3 sm:px-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -39,9 +39,9 @@ export default function SearchModal({ isOpen, onClose }) {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="relative w-full max-w-xl bg-brand-cream rounded-3xl shadow-2xl border border-brand-green/10 overflow-hidden"
+            className="relative w-full min-w-0 max-w-xl max-h-[calc(100dvh-6rem)] bg-brand-cream rounded-3xl shadow-2xl border border-brand-green/10 overflow-hidden"
           >
-            <div className="flex items-center gap-3 p-5 border-b border-brand-green/10">
+            <div className="flex min-w-0 items-center gap-2 sm:gap-3 p-3 sm:p-5 border-b border-brand-green/10">
               <Search size={20} className="text-brand-green shrink-0" />
               <input
                 type="search"
@@ -49,7 +49,7 @@ export default function SearchModal({ isOpen, onClose }) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search products..."
-                className="flex-1 bg-transparent text-brand-dark placeholder:text-brand-muted focus:outline-none"
+                className="flex-1 min-w-0 bg-transparent text-brand-dark placeholder:text-brand-muted focus:outline-none"
               />
               <button
                 type="button"

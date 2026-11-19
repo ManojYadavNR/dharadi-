@@ -21,7 +21,7 @@ export default function ProductQuickView({ product, onClose }) {
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
-          className="relative bg-brand-cream rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-brand-green/10"
+          className="relative bg-brand-cream rounded-3xl max-w-2xl w-full min-w-0 max-h-[90dvh] overflow-y-auto shadow-2xl border border-brand-green/10"
         >
           <button
             type="button"
@@ -37,7 +37,7 @@ export default function ProductQuickView({ product, onClose }) {
               alt={product.name}
               className="w-full h-64 sm:h-full object-cover rounded-t-3xl sm:rounded-l-3xl sm:rounded-tr-none"
             />
-            <div className="p-8">
+            <div className="p-5 sm:p-8 min-w-0">
               <h3 className="font-heading text-2xl text-brand-dark mb-2">
                 {product.name}
               </h3>

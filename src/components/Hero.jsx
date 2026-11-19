@@ -10,7 +10,7 @@ export default function Hero() {
       className="relative min-h-screen flex items-center pt-24 lg:pt-28 leaf-pattern overflow-hidden"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-brand-cream via-brand-cream to-brand-green-light/40" />
-      <div className="relative max-w-7xl mx-auto px-5 lg:px-8 py-16 lg:py-24 w-full">
+      <div className="relative max-w-7xl mx-auto px-5 lg:px-8 py-10 sm:py-16 lg:py-24 w-full">
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <AnimateSection>
             <p className="font-heading text-brand-green text-lg lg:text-xl italic mb-4">
@@ -54,11 +54,14 @@ export default function Hero() {
               <img
                 src={feed4}
                 alt="Fresh natural produce from Dharadi farms"
+                fetchPriority="high"
+                loading="eager"
+                decoding="async"
                 className="w-full h-full object-cover "
               />
               <div className="absolute inset-0 bg-gradient-to-t from-brand-green/30 to-transparent" />
             </div>
-            <div className="absolute -bottom-4 -left-4 lg:-left-8 bg-white rounded-2xl px-6 py-4 shadow-md border border-brand-green/10">
+            <div className="absolute bottom-2 left-2 sm:-bottom-4 sm:-left-4 lg:-left-8 bg-white rounded-2xl px-4 sm:px-6 py-3 sm:py-4 shadow-md border border-brand-green/10">
               <p className="font-heading text-brand-green text-lg">From Soil to Soul</p>
               <p className="text-brand-muted text-sm mt-1">Premium · Organic · Trusted</p>
             </div>
