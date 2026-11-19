@@ -3,12 +3,12 @@ import ProductPurchase from "./ProductPurchase";
 
 export default function ProductCard({ product, onQuickView }) {
   return (
-    <article className="group min-w-0 bg-white sm:bg-brand-cream rounded-xl sm:rounded-2xl border border-brand-green/15 overflow-hidden transition-all duration-300 sm:hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
+    <article className="group min-w-0 bg-brand-cream rounded-xl sm:rounded-2xl border border-brand-green/15 overflow-hidden transition-all duration-300 sm:hover:-translate-y-1 hover:shadow-lg flex flex-col h-full">
       <button
         type="button"
         onClick={() => onQuickView(product)}
         aria-label={`View details for ${product.name}`}
-        className="relative w-full aspect-[5/4] sm:aspect-square overflow-hidden bg-white cursor-pointer"
+        className="relative w-full aspect-[5/4] sm:aspect-square overflow-hidden bg-brand-cream sm:bg-white cursor-pointer"
       >
         <img
           src={product.image}
