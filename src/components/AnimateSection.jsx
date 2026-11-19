@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
 
-export default function AnimateSection({ children, className = "", delay = 0 }) {
+export default function AnimateSection({ children, className = "", delay = 0, immediate = false }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
+      initial={immediate ? false : { opacity: 0, y: 24 }}
+      animate={immediate ? { opacity: 1, y: 0 } : undefined}
+      whileInView={immediate ? undefined : { opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.6, delay, ease: "easeOut" }}
       className={className}

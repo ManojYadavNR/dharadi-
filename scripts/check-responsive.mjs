@@ -29,7 +29,7 @@ let browser;
 try {
   await ready();
   browser = await chromium.launch({ headless: true, args: ["--no-sandbox"] });
-  const widths = [320, 360, 375, 390, 414, 540, 640, 768, 820, 1024, 1280, 1440, 1920];
+  const widths = [320, 360, 375, 390, 414, 433, 540, 640, 768, 820, 1024, 1280, 1440, 1920];
 
   for (const route of ["/", "/shop", "/checkout"]) {
     const page = await browser.newPage({ viewport: { width: 320, height: 800 } });
@@ -75,8 +75,19 @@ try {
         `${route} at ${width}px overflows: document ${result.scroll}px vs viewport ${result.client}px`
       );
       if (route === "/" && width === 375) {
+        assert.equal(await page.locator("header").getByText("DHARADI", { exact: true }).isVisible(), true, "Brand name must show beside mobile logo");
+        const headerSurface = await page.locator("header").evaluate((el) => getComputedStyle(el).backgroundColor);
+        assert.ok(headerSurface.startsWith("rgb(") && headerSurface !== "rgba(0, 0, 0, 0)", "Mobile header background must be opaque before scroll");
+        const heroTitle = page.locator("#home h1");
+        assert.equal(await heroTitle.isVisible(), true, "Hero headline missing at initial load");
+        assert.equal(await heroTitle.evaluate(el => getComputedStyle(el.parentElement).opacity), "1", "Hero animation must not hide first-screen headline");
+        assert.equal(await page.getByText("At Dharadi, we bring nature's finest products directly from trusted farms to your home", { exact: false }).count() > 0, true, "Mobile hero details must be rendered without a disclosure");
         await page.getByRole("button", { name: "Open menu" }).click();
-        assert.equal(await page.locator("#mobile-navigation").isVisible(), true);
+        const menu = page.locator("#mobile-navigation");
+        assert.equal(await menu.isVisible(), true);
+        const menuBg = await menu.evaluate(el => getComputedStyle(el).backgroundColor);
+        assert.ok(menuBg.startsWith("rgb("), "Mobile navigation must have its own non-transparent background");
+        assert.equal(await menu.getByText("Our Story").isVisible(), true);
         await page.getByRole("button", { name: "Close menu" }).click();
         assert.equal(await page.locator("#mobile-navigation").count(), 0);
       }
@@ -107,6 +118,8 @@ try {
     "Why families trust Dharadi — swipe horizontally",
     "Our process steps — swipe horizontally",
     "Customer reviews — swipe horizontally",
+    "Our Journey — swipe horizontally",
+    "Get in Touch — swipe horizontally",
   ]) {
     const rail = mobile.getByLabel(label);
     const metrics = await rail.evaluate(el => ({ visible: el.clientWidth, total: el.scrollWidth }));
@@ -145,7 +158,7 @@ try {
   await shopPage.close();
   console.log("Product size, sample price, WhatsApp enquiry and cart quantity tests passed.");
 
-  console.log("All 39 route-and-viewport checks passed.");
+  console.log("All 42 route-and-viewport checks passed.");
 } finally {
   await browser?.close();
   if (server.exitCode === null) server.kill("SIGTERM");

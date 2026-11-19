@@ -82,23 +82,24 @@ const items = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-12 sm:py-20 lg:py-28 bg-white">
+    <section id="contact" className="py-9 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <AnimateSection className="text-center mb-14">
-          <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
+        <AnimateSection className="text-center mb-5 sm:mb-14">
+          <h2 className="font-heading text-2xl sm:text-4xl font-semibold text-brand-dark">
             Get In Touch
           </h2>
-          <p className="text-brand-muted mt-3 text-sm max-w-md mx-auto">
+          <p className="text-brand-muted mt-2 sm:mt-3 text-xs sm:text-sm max-w-md mx-auto">
             Reach us by phone, WhatsApp, or Instagram. We&apos;re happy to help with
             orders and delivery across Chintamani, Bengaluru, and Kolar.
           </p>
         </AnimateSection>
-        <div className="grid min-w-0 grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
+        <p className="md:hidden text-xs text-brand-muted mb-3" aria-hidden="true">Swipe to see all contact options →</p>
+        <div aria-label="Get in Touch — swipe horizontally" className="flex min-w-0 overflow-x-auto snap-x snap-mandatory overscroll-x-contain gap-3 pb-3 -mr-5 pr-5 md:mr-auto md:pr-0 md:pb-0 md:grid md:grid-cols-3 md:gap-6 max-w-4xl mx-auto dharadi-swipe-rail">
           {items.map(({ icon: Icon, title, content }) => (
-            <AnimateSection key={title}>
-              <div className="min-w-0 bg-brand-cream rounded-2xl p-5 sm:p-8 border border-brand-green/10 h-full">
-                <Icon size={24} className="text-brand-green mb-4" strokeWidth={1.5} />
-                <h3 className="font-heading text-lg text-brand-dark mb-3">{title}</h3>
+            <AnimateSection key={title} className="w-[79vw] max-w-[325px] shrink-0 snap-start md:w-auto md:max-w-none md:shrink">
+              <div className="min-w-0 bg-brand-cream rounded-2xl p-4 sm:p-8 border border-brand-green/10 h-full">
+                <Icon size={24} className="text-brand-green mb-2 sm:mb-4" strokeWidth={1.5} />
+                <h3 className="font-heading text-lg text-brand-dark mb-2 sm:mb-3">{title}</h3>
                 <div className="text-brand-muted text-sm leading-relaxed">{content}</div>
               </div>
             </AnimateSection>

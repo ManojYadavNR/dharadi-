@@ -20,24 +20,25 @@ export default function Header({ onSearchOpen }) {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
 
-  const headerBg = scrolled
-    ? "bg-brand-cream/95 backdrop-blur-md shadow-sm border-b border-brand-green/10"
-    : "bg-transparent";
+  const desktopSurface = scrolled
+    ? "xl:bg-brand-cream/95 xl:backdrop-blur-md xl:shadow-sm xl:border-brand-green/10"
+    : "xl:bg-transparent xl:shadow-none xl:border-transparent";
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${headerBg}`}
+      className={`fixed top-0 left-0 right-0 z-50 bg-brand-cream shadow-sm border-b border-brand-green/10 transition-colors duration-300 ${desktopSurface}`}
     >
-      <div className="max-w-7xl mx-auto px-5 lg:px-8">
+      <div className="max-w-7xl mx-auto px-3 sm:px-5 lg:px-8">
         <div className="flex min-w-0 items-center justify-between gap-1 h-20 lg:h-24">
-          <Link to="/" className="flex items-center gap-3 shrink-0">
+          <Link to="/" className="flex items-center gap-1 sm:gap-3 shrink-0">
             <Logo size="md" />
-            <span className="hidden sm:block font-heading text-xl lg:text-2xl font-semibold text-brand-green tracking-wide">
+            <span className="block font-heading text-sm min-[375px]:text-base sm:text-xl lg:text-2xl font-semibold text-brand-green tracking-tight sm:tracking-wide whitespace-nowrap">
               DHARADI
             </span>
           </Link>
@@ -54,11 +55,11 @@ export default function Header({ onSearchOpen }) {
             ))}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-1 sm:gap-2 xl:gap-3">
+          <div className="flex shrink-0 items-center gap-0.5 sm:gap-2 xl:gap-3">
             <button
               type="button"
               onClick={onSearchOpen}
-              className="p-2.5 rounded-xl text-brand-green hover:bg-brand-green/10 transition-colors"
+              className="p-1.5 min-[375px]:p-2.5 rounded-xl text-brand-green hover:bg-brand-green/10 transition-colors"
               aria-label="Search"
             >
               <Search size={20} />
@@ -66,7 +67,7 @@ export default function Header({ onSearchOpen }) {
             <button
               type="button"
               onClick={() => setIsOpen(true)}
-              className="relative p-2.5 rounded-xl text-brand-green hover:bg-brand-green/10 transition-colors"
+              className="relative p-1.5 min-[375px]:p-2.5 rounded-xl text-brand-green hover:bg-brand-green/10 transition-colors"
               aria-label="Cart"
             >
               <ShoppingBag size={20} />
@@ -84,7 +85,7 @@ export default function Header({ onSearchOpen }) {
             </a>
             <button
               type="button"
-              className="xl:hidden p-2.5 rounded-xl text-brand-green"
+              className="xl:hidden p-1.5 min-[375px]:p-2.5 rounded-xl text-brand-green"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "Close menu" : "Open menu"}
               aria-expanded={mobileOpen}
@@ -96,7 +97,7 @@ export default function Header({ onSearchOpen }) {
         </div>
 
         {mobileOpen && (
-          <nav id="mobile-navigation" className="xl:hidden pb-6 flex flex-col gap-1 border-t border-brand-green/10 pt-4 max-h-[calc(100dvh-5rem)] overflow-y-auto">
+          <nav id="mobile-navigation" aria-label="Mobile navigation" className="xl:hidden relative isolate bg-brand-cream pb-5 flex flex-col gap-1 border-t border-brand-green/10 pt-3 max-h-[calc(100dvh-5rem)] overflow-y-auto rounded-b-xl shadow-lg">
             {navLinks.map((link) => (
               <a
                 key={link.label}
