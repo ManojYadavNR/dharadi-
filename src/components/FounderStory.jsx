@@ -13,9 +13,9 @@ const founders = [
 
 export default function FounderStory() {
   return (
-    <section id="founder" className="py-20 lg:py-28 bg-brand-green-light/50 leaf-pattern">
+    <section id="founder" className="py-12 sm:py-20 lg:py-28 bg-brand-green-light/50 leaf-pattern">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid min-w-0 grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
           <AnimateSection className="order-2 lg:order-1">
             <span className="text-brand-gold text-sm font-medium tracking-widest uppercase">
               Our Story
@@ -46,7 +46,7 @@ export default function FounderStory() {
                 Chikkaballapur.
               </p>
             </div>
-            <div className="mt-10 pt-8 border-t border-brand-green/20 grid sm:grid-cols-2 gap-6">
+            <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-brand-green/20 grid sm:grid-cols-2 gap-6">
               {founders.map((founder) => (
                 <blockquote key={founder.name}>
                   <p className="font-heading text-lg text-brand-dark italic">

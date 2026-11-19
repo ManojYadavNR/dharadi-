@@ -16,7 +16,7 @@ import Contact from "../components/Contact";
 
 export default function Home() {
   return (
-    <>
+    <main id="main-content">
       <Hero />
       <SocialProof />
       <TrustBar />
@@ -32,6 +32,6 @@ export default function Home() {
       <Wholesale />
       <Instagram />
       <Contact />
-    </>
+    </main>
   );
 }

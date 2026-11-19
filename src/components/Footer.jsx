@@ -14,8 +14,8 @@ const quickLinks = [
 export default function Footer() {
   return (
     <footer className="bg-brand-green text-brand-cream">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-16 lg:py-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-14">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-8 mb-10 sm:mb-14">
           <div className="lg:col-span-1">
             <Logo size="lg" variant="onDark" className="mb-5" />
             <h3 className="font-heading text-2xl tracking-wide mb-1">DHARADI</h3>
@@ -59,7 +59,7 @@ export default function Footer() {
             <Newsletter />
           </div>
         </div>
-        <div className="pt-8 border-t border-brand-cream/15 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-brand-cream/60">
+        <div className="pt-8 border-t border-brand-cream/15 flex flex-col sm:flex-row justify-between items-center gap-4 text-center sm:text-left text-sm text-brand-cream/60">
           <p>© {new Date().getFullYear()} Dharadi. All rights reserved.</p>
           <p>Nayindralli Village, Chikkaballapur, Karnataka</p>
         </div>

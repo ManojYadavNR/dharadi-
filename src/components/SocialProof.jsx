@@ -8,7 +8,7 @@ export default function SocialProof() {
           Growing naturally with customers across Karnataka
         </p>
         <span className="hidden sm:block w-px h-5 bg-brand-green/20" aria-hidden />
-        <p className="flex items-center justify-center sm:justify-start gap-2 text-brand-muted text-sm">
+        <p className="flex min-w-0 flex-wrap items-center justify-center sm:justify-start gap-2 text-brand-muted text-sm">
           <MapPin size={16} className="text-brand-green shrink-0" />
           Currently delivering: Chintamani · Bengaluru · Chickballapur
         </p>

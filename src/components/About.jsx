@@ -3,9 +3,9 @@ import feed3 from "../assets/feed/feed3.jpg";
 
 export default function About() {
   return (
-    <section id="about" className="py-20 lg:py-28 bg-white">
+    <section id="about" className="py-12 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <div className="grid min-w-0 grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-20 items-center">
           <AnimateSection>
             <div className="relative rounded-3xl overflow-hidden aspect-[4/5] max-h-[520px] border border-brand-green/10 shadow-md">
               <img

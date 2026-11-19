@@ -12,14 +12,14 @@ export default function TrustBar() {
   return (
     <section className="bg-brand-green py-5">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="flex flex-wrap justify-center gap-6 sm:gap-10 lg:gap-16">
+        <div className="flex flex-wrap justify-center gap-x-4 gap-y-3 sm:gap-10 lg:gap-16">
           {items.map(({ icon: Icon, label }) => (
             <div
               key={label}
               className="flex items-center gap-2.5 text-brand-cream/95"
             >
               <Icon size={18} strokeWidth={1.5} />
-              <span className="text-xs sm:text-sm font-medium tracking-wide uppercase">
+              <span className="text-[11px] sm:text-sm font-medium tracking-wide uppercase">
                 {label}
               </span>
             </div>

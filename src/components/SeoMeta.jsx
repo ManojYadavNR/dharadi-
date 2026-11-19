@@ -37,8 +37,9 @@ export default function SeoMeta() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    const page = pageSeo[pathname] || { ...pageSeo["/"], index: false };
-    const url = siteUrl + (pathname === "/" ? "/" : pathname);
+    const normalizedPath = pathname.replace(/\/+$/, "") || "/";
+    const page = pageSeo[normalizedPath] || { ...pageSeo["/"], index: false };
+    const url = siteUrl + (normalizedPath === "/" ? "/" : normalizedPath);
     document.title = page.title;
     updateMeta('meta[name="description"]', "name:description", page.description);
     updateMeta('meta[name="robots"]', "name:robots", page.index ? "index, follow" : "noindex, nofollow");
@@ -54,6 +55,28 @@ export default function SeoMeta() {
       document.head.appendChild(canonical);
     }
     canonical.href = url;
+
+    const script = document.getElementById("dharadi-page-schema");
+    if (script) {
+      const pageSchema = {
+        "@context": "https://schema.org",
+        "@type": normalizedPath === "/shop" ? "CollectionPage" : "WebPage",
+        name: page.title,
+        url,
+        description: page.description,
+        isPartOf: { "@type": "WebSite", name: "Dharadi", url: `${siteUrl}/` },
+      };
+      if (normalizedPath === "/shop") {
+        pageSchema.breadcrumb = {
+          "@type": "BreadcrumbList",
+          itemListElement: [
+            { "@type": "ListItem", position: 1, name: "Home", item: `${siteUrl}/` },
+            { "@type": "ListItem", position: 2, name: "Shop", item: url },
+          ],
+        };
+      }
+      script.textContent = JSON.stringify(pageSchema);
+    }
   }, [pathname]);
 
   return null;

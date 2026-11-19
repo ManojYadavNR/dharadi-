@@ -8,7 +8,7 @@ export default function FeaturedProducts() {
   const [quickView, setQuickView] = useState(null);
 
   return (
-    <section id="products" className="py-20 lg:py-28 bg-brand-cream">
+    <section id="products" className="py-12 sm:py-20 lg:py-28 bg-brand-cream">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center max-w-2xl mx-auto mb-14 lg:mb-16">
           <span className="text-brand-gold text-sm font-medium tracking-widest uppercase">
@@ -21,7 +21,7 @@ export default function FeaturedProducts() {
             Premium natural products, carefully sourced and delivered fresh to your home.
           </p>
         </AnimateSection>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <div className="grid min-w-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
           {products.map((product, i) => (
             <AnimateSection key={product.id} delay={i * 0.05}>
               <ProductCard product={product} onQuickView={setQuickView} />

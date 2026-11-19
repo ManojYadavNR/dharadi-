@@ -82,7 +82,7 @@ const items = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-20 lg:py-28 bg-white">
+    <section id="contact" className="py-12 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center mb-14">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
@@ -93,10 +93,10 @@ export default function Contact() {
             orders and delivery across Chintamani, Bengaluru, and Kolar.
           </p>
         </AnimateSection>
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="grid min-w-0 grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 max-w-4xl mx-auto">
           {items.map(({ icon: Icon, title, content }) => (
             <AnimateSection key={title}>
-              <div className="bg-brand-cream rounded-2xl p-8 border border-brand-green/10 h-full">
+              <div className="min-w-0 bg-brand-cream rounded-2xl p-5 sm:p-8 border border-brand-green/10 h-full">
                 <Icon size={24} className="text-brand-green mb-4" strokeWidth={1.5} />
                 <h3 className="font-heading text-lg text-brand-dark mb-3">{title}</h3>
                 <div className="text-brand-muted text-sm leading-relaxed">{content}</div>
