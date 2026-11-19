@@ -43,28 +43,29 @@ const cards = [
 
 export default function WhyChoose() {
   return (
-    <section className="py-12 sm:py-20 lg:py-28 bg-white">
+    <section className="py-9 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <AnimateSection className="text-center max-w-2xl mx-auto mb-14 lg:mb-16">
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-dark">
+        <AnimateSection className="text-center max-w-2xl mx-auto mb-5 sm:mb-14 lg:mb-16">
+          <h2 className="font-heading text-2xl min-[375px]:text-3xl sm:text-4xl lg:text-5xl font-semibold text-brand-dark">
             Why Families Trust Dharadi
           </h2>
         </AnimateSection>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+        <p className="sm:hidden text-xs text-brand-muted mb-3" aria-hidden="true">Swipe to explore what matters to us →</p>
+        <div aria-label="Why families trust Dharadi — swipe horizontally" className="flex min-w-0 overflow-x-auto snap-x snap-mandatory overscroll-x-contain gap-3 pb-3 -mr-5 pr-5 sm:mr-0 sm:pr-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 lg:gap-8 dharadi-swipe-rail">
           {cards.map((card, i) => (
-            <AnimateSection key={card.title} delay={i * 0.05}>
-              <div className="bg-brand-cream rounded-2xl p-5 sm:p-8 border border-brand-green/10 hover:border-brand-green/25 hover:-translate-y-1 transition-all duration-300 h-full">
+            <AnimateSection key={card.title} delay={i * 0.05} className="w-[72vw] max-w-[300px] shrink-0 snap-start sm:w-auto sm:max-w-none sm:shrink">
+              <div className="bg-brand-cream rounded-2xl p-4 sm:p-8 border border-brand-green/10 hover:border-brand-green/25 sm:hover:-translate-y-1 transition-all duration-300 h-full flex items-start gap-3 sm:block">
                 <card.icon
                   size={28}
                   strokeWidth={1.5}
-                  className="text-brand-green mb-5"
+                  className="text-brand-green shrink-0 sm:mb-5"
                 />
-                <h3 className="font-heading text-xl text-brand-dark mb-2">
+                <div className="min-w-0"><h3 className="font-heading text-lg sm:text-xl text-brand-dark mb-1 sm:mb-2">
                   {card.title}
                 </h3>
                 <p className="text-brand-muted text-sm leading-relaxed">
                   {card.desc}
-                </p>
+                </p></div>
               </div>
             </AnimateSection>
           ))}

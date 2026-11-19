@@ -67,7 +67,21 @@ export default function Hero() {
             </div>
           </AnimateSection>
         </div>
-        <div className="lg:hidden flex flex-wrap items-center gap-2 sm:gap-3 mt-5">
+        <div className="lg:hidden mt-3">
+          <p className="text-xs text-brand-muted">Because what you eat shapes how you live.</p>
+          <details className="mt-2 text-xs text-brand-muted group">
+            <summary className="cursor-pointer text-brand-green font-medium list-none inline-flex items-center gap-1">
+              More about Dharadi <span aria-hidden="true" className="group-open:rotate-180 transition-transform">⌄</span>
+            </summary>
+            <div className="mt-2 space-y-2 leading-relaxed">
+              <p>At Dharadi, we bring nature&apos;s finest products directly from trusted farms to your home — fresh, chemical-free, and crafted for healthier living.</p>
+              <p>We are not here to sell food.<br />We are here to rebuild trust in what people eat.</p>
+              <p>100% Natural · Farm Fresh · Chemical-Free · Sustainably Sourced</p>
+              <a href="#about" className="inline-block font-medium text-brand-green underline underline-offset-2">Explore Our Story</a>
+            </div>
+          </details>
+        </div>
+        <div className="lg:hidden flex flex-wrap items-center gap-2 sm:gap-3 mt-3">
           <a
             href={whatsappOrderUrl()}
             target="_blank"

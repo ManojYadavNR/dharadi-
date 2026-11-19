@@ -21,9 +21,10 @@ export default function FeaturedProducts() {
             Premium natural products, carefully sourced and delivered fresh to your home.
           </p>
         </AnimateSection>
-        <div className="grid min-w-0 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6 lg:gap-8">
+        <p className="sm:hidden text-xs text-brand-muted mb-3" aria-hidden="true">Swipe to browse products →</p>
+        <div aria-label="Featured products — swipe horizontally" className="flex min-w-0 gap-2.5 overflow-x-auto snap-x snap-mandatory overscroll-x-contain pb-3 -mr-5 pr-5 sm:mr-0 sm:pr-0 sm:pb-0 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6 lg:gap-8 dharadi-swipe-rail">
           {catalogProducts.map((product, index) => (
-            <AnimateSection key={product.id} delay={index * 0.05} className="h-full min-w-0">
+            <AnimateSection key={product.id} delay={index * 0.05} className="w-[calc((100vw-50px)/2)] min-w-0 max-w-[240px] shrink-0 snap-start sm:w-auto sm:max-w-none sm:shrink sm:h-full">
               <ProductCard product={product} onQuickView={setQuickView} />
             </AnimateSection>
           ))}

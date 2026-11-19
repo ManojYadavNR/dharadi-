@@ -2,8 +2,8 @@ import { MapPin } from "lucide-react";
 
 export default function SocialProof() {
   return (
-    <section className="bg-white border-y border-brand-green/10 py-6">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 text-center sm:text-left">
+    <section className="bg-white border-y border-brand-green/10 py-3 sm:py-6">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 flex flex-col sm:flex-row items-center justify-center gap-1.5 sm:gap-6 text-center sm:text-left">
         <p className="text-brand-dark font-medium text-sm sm:text-base">
           Growing naturally with customers across Karnataka
         </p>

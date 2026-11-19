@@ -87,6 +87,37 @@ try {
     }
     await page.close();
   }
+  // Compact homepage: product cards and trust/process/review sections must swipe sideways on phones.
+  const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await mobile.route("**/*", (request) => {
+    const url = request.request().url();
+    if (/^https?:/.test(url) && !url.startsWith(origin)) return request.abort();
+    return request.continue();
+  });
+  await mobile.goto(origin + "/", { waitUntil: "domcontentloaded" });
+  const productsSection = mobile.locator("#products");
+  const aboutSection = mobile.locator("#about");
+  const [productsY, aboutY] = await Promise.all([
+    productsSection.evaluate(el => el.getBoundingClientRect().top),
+    aboutSection.evaluate(el => el.getBoundingClientRect().top),
+  ]);
+  assert.ok(productsY < aboutY, "Products must appear above About Dharadi");
+  for (const label of [
+    "Featured products — swipe horizontally",
+    "Why families trust Dharadi — swipe horizontally",
+    "Our process steps — swipe horizontally",
+    "Customer reviews — swipe horizontally",
+  ]) {
+    const rail = mobile.getByLabel(label);
+    const metrics = await rail.evaluate(el => ({ visible: el.clientWidth, total: el.scrollWidth }));
+    assert.ok(metrics.total > metrics.visible + 10, `Expected swipe rail for ${label}`);
+  }
+  assert.equal(await mobile.locator("#products article").count(), 5);
+  assert.ok(await mobile.getByText("Every product is carefully selected and processed.").count() > 0, "Trust section copy should remain intact");
+  assert.ok(await mobile.getByText("Harvested at peak freshness.").count() > 0, "Process text should remain intact");
+  await mobile.close();
+  console.log("Compact homepage mobile layout and preserved content checks passed.");
+
   // Product variants are user-facing controls; verify price/quantity/cart coherence.
   const shopPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
   shopPage.setDefaultTimeout(5000);
@@ -99,9 +130,10 @@ try {
   const moringa = shopPage.locator("article").filter({ hasText: "Moringa Powder" }).first();
   const select = moringa.getByRole("combobox", { name: "Pack size for Moringa Powder" });
   await select.selectOption("100g");
-  assert.equal(await moringa.getByText("Price on request").count(), 1);
+  assert.equal(await moringa.getByText("Sample price · confirm before purchase").count(), 1);
+  assert.equal(await moringa.getByText("₹119").count(), 1);
   assert.equal(await moringa.getByRole("button", { name: "Add to Cart" }).count(), 0);
-  const message = await moringa.getByRole("link", { name: "Ask on WhatsApp" }).getAttribute("href");
+  const message = await moringa.getByRole("link", { name: "Confirm on WhatsApp" }).getAttribute("href");
   assert.ok(decodeURIComponent(message).includes("Moringa Powder (100g)"));
   await select.selectOption("500g");
   await moringa.getByRole("button", { name: "Increase units of Moringa Powder" }).click();
@@ -111,7 +143,7 @@ try {
   assert.equal(await shopPage.getByText("Moringa Powder (500g)").count(), 1);
   assert.equal(await shopPage.locator("aside").getByText("₹798").count(), 1);
   await shopPage.close();
-  console.log("Product size, WhatsApp enquiry and cart quantity tests passed.");
+  console.log("Product size, sample price, WhatsApp enquiry and cart quantity tests passed.");
 
   console.log("All 39 route-and-viewport checks passed.");
 } finally {
