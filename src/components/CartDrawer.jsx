@@ -60,8 +60,11 @@ export default function CartDrawer() {
                         <h3 className="font-medium text-brand-dark text-sm truncate">
                           {item.name}
                         </h3>
-                        <p className="text-brand-green font-semibold mt-1">
-                          ₹{item.price}
+                        <p className="text-brand-green font-semibold mt-1 flex flex-wrap gap-x-2 items-baseline">
+                          <span>₹{item.price}</span>
+                          {item.actualPrice > item.price && (
+                            <del className="font-normal text-xs text-brand-muted">₹{item.actualPrice}</del>
+                          )}
                         </p>
                         <div className="flex items-center gap-2 mt-2">
                           <button

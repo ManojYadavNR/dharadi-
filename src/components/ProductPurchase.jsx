@@ -7,7 +7,8 @@ export default function ProductPurchase({ product, onAdded, compact = false }) {
   const { addToCart } = useCart();
   const [size, setSize] = useState(product.defaultSize);
   const selected = product.variants.find((variant) => variant.size === size);
-  const price = selected?.price ?? null;
+  const price = selected?.discountedPrice ?? null;
+  const actualPrice = selected?.actualPrice ?? null;
   const isSample = Boolean(selected?.estimated);
   const cartProduct = variantProduct(product, size);
   const orderMessage = encodeURIComponent(
@@ -15,8 +16,8 @@ export default function ProductPurchase({ product, onAdded, compact = false }) {
       (price === null
         ? "Please confirm the price, availability and delivery."
         : isSample
-          ? `Indicative price ₹${price} per pack. Please confirm the final price, quantity, availability and delivery before ordering.`
-          : `Listed price: ₹${price} per pack. Please confirm the quantity, availability and delivery.`)
+          ? `Indicative discounted price ₹${price} per pack. Please confirm the final price, quantity, availability and delivery before ordering.`
+          : `Discounted selling price: ₹${price} per pack. Please confirm the quantity, availability and delivery.`)
   );
 
   return (
@@ -36,9 +37,12 @@ export default function ProductPurchase({ product, onAdded, compact = false }) {
       </label>
       <div className="mt-2 sm:mt-3 flex flex-wrap items-baseline justify-between gap-1">
         {price !== null ? (
-          <>
+          <div className="flex flex-wrap items-baseline gap-x-2 gap-y-0.5">
             <span className="font-semibold text-brand-green text-sm sm:text-lg">₹{price}<span className="text-[10px] sm:text-xs font-normal text-brand-muted"> / pack</span></span>
-          </>
+            {actualPrice !== null && actualPrice > price && (
+              <del aria-label={`Original price ₹${actualPrice}`} className="text-xs sm:text-sm text-brand-muted">₹{actualPrice}</del>
+            )}
+          </div>
         ) : (
           <span className="text-xs sm:text-sm font-medium text-brand-green">Price to be confirmed</span>
         )}

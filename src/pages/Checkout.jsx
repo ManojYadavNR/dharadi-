@@ -121,8 +121,13 @@ export default function Checkout() {
                   <span className="text-brand-dark min-w-0 break-words">
                     {item.name} × {item.quantity}
                   </span>
-                  <span className="text-brand-green font-medium shrink-0">
-                    ₹{item.price * item.quantity}
+                  <span className="text-brand-green font-medium shrink-0 text-right">
+                    <span className="block">₹{item.price * item.quantity}</span>
+                    {item.actualPrice > item.price && (
+                      <del className="block font-normal text-xs text-brand-muted">
+                        ₹{item.actualPrice * item.quantity}
+                      </del>
+                    )}
                   </span>
                 </li>
               ))}

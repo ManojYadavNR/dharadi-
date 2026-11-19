@@ -1,13 +1,8 @@
 import { products } from "./products.js";
 
-// Provisional display prices only: confirm actual selling prices before launch.
-// Existing catalog prices below always take precedence over these examples.
-export const SAMPLE_PACK_PRICES = {
-  "fresh-oyster-mushrooms-200g": { "100g": 29, "500g": 119 },
-  "dried-mushrooms-100g": { "200g": 699, "500g": 1649 },
-  "mushroom-powder-100g": { "200g": 649, "500g": 1499 },
-  "moringa-powder-200g": { "100g": 119 },
-};
+// All pack-specific prices now live together in products.js.
+// actualPrice = crossed-out reference price; discountedPrice = amount customers pay.
+// isPriceDraft = true keeps an unapproved sample price as WhatsApp enquiry only.
 export const GRAM_SIZES = ["100g", "200g", "500g"];
 
 function baseName(name) {
@@ -37,16 +32,17 @@ export const catalogProducts = [...groups.values()].map((group) => {
   const preferredSize = options.includes("200g") && group.productsBySize["200g"]
     ? "200g"
     : group.originalSize;
-  const draftPrices = SAMPLE_PACK_PRICES[Object.values(group.productsBySize)[0].id] || {};
+
   return {
     ...group,
     defaultSize: preferredSize,
     variants: options.map((size) => {
-      const realPrice = group.productsBySize[size]?.price;
+      const sku = group.productsBySize[size];
       return {
         size,
-        price: realPrice ?? draftPrices[size] ?? null,
-        estimated: realPrice === undefined && draftPrices[size] !== undefined,
+        actualPrice: sku?.actualPrice ?? null,
+        discountedPrice: sku?.discountedPrice ?? null,
+        estimated: Boolean(sku?.isPriceDraft),
       };
     }),
   };
@@ -54,6 +50,7 @@ export const catalogProducts = [...groups.values()].map((group) => {
 
 export function variantProduct(group, size) {
   const match = group.productsBySize[size];
-  if (!match) return null; // sample prices cannot be checked out as confirmed prices
-  return { ...match, packSize: size };
+  if (!match || match.isPriceDraft) return null;
+  // The cart and checkout already sum item.price. Always assign discountedPrice here.
+  return { ...match, price: match.discountedPrice, packSize: size };
 }
