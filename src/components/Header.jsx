@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Menu, X, Search, ShoppingBag } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import Logo from "./Logo";
@@ -17,7 +17,6 @@ export default function Header({ onSearchOpen }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const { count, setIsOpen } = useCart();
-  const location = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -25,7 +24,6 @@ export default function Header({ onSearchOpen }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => setMobileOpen(false), [location]);
 
   const headerBg = scrolled
     ? "bg-brand-cream/95 backdrop-blur-md shadow-sm border-b border-brand-green/10"
@@ -103,6 +101,7 @@ export default function Header({ onSearchOpen }) {
               <a
                 key={link.label}
                 href={link.href}
+                onClick={() => setMobileOpen(false)}
                 className="py-3 px-2 text-brand-dark font-medium hover:text-brand-green transition-colors"
               >
                 {link.label}
@@ -110,6 +109,7 @@ export default function Header({ onSearchOpen }) {
             ))}
             <a
               href="/shop"
+              onClick={() => setMobileOpen(false)}
               className="mt-3 inline-flex justify-center px-6 py-3 rounded-2xl bg-brand-green text-brand-cream text-sm font-medium"
             >
               Shop Now

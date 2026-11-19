@@ -6,7 +6,7 @@ export default function Wholesale() {
   return (
     <section id="partner" className="py-12 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="bg-brand-cream rounded-3xl p-5 sm:p-10 lg:p-16 border" border-brand-green/10 text-center max-w-4xl mx-auto">
+        <div className="bg-brand-cream rounded-3xl p-5 sm:p-10 lg:p-16 border border-brand-green/10 text-center max-w-4xl mx-auto">
           <AnimateSection>
             <span className="text-brand-gold text-sm font-medium tracking-widest uppercase">
               Partnership

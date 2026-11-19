@@ -14,15 +14,22 @@ export default function SearchModal({ isOpen, onClose }) {
       p.shortDesc.toLowerCase().includes(query.toLowerCase())
   );
 
-  useEffect(() => {
-    if (!isOpen) setQuery("");
-  }, [isOpen]);
+
+  const handleClose = () => {
+    setQuery("");
+    onClose();
+  };
 
   useEffect(() => {
-    const onKey = (e) => e.key === "Escape" && onClose();
+    const onKey = (e) => {
+      if (e.key === "Escape" && isOpen) {
+        setQuery("");
+        onClose();
+      }
+    };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
   return (
     <AnimatePresence>
@@ -33,7 +40,7 @@ export default function SearchModal({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 bg-brand-dark/50 backdrop-blur-sm"
-            onClick={onClose}
+            onClick={handleClose}
           />
           <motion.div
             initial={{ opacity: 0, y: -20 }}
@@ -72,7 +79,7 @@ export default function SearchModal({ isOpen, onClose }) {
                       type="button"
                       onClick={() => {
                         addToCart(p);
-                        onClose();
+                        handleClose();
                       }}
                       className="w-full flex items-center gap-4 p-3 rounded-2xl hover:bg-white transition-colors text-left"
                     >
