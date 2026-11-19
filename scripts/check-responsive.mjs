@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { chromium } from "playwright";
 
 const origin = "http://127.0.0.1:4173";
-const server = spawn("npm", ["run", "preview", "--", "--host", "127.0.0.1", "--port", "4173", "--strictPort"], {
+const server = spawn(process.execPath, ["node_modules/vite/bin/vite.js", "preview", "--host", "127.0.0.1", "--port", "4173", "--strictPort"], {
   stdio: ["ignore", "pipe", "pipe"],
 });
 let logs = "";
@@ -87,8 +87,36 @@ try {
     }
     await page.close();
   }
+  // Product variants are user-facing controls; verify price/quantity/cart coherence.
+  const shopPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  shopPage.setDefaultTimeout(5000);
+  await shopPage.route("**/*", (request) => {
+    const target = request.request().url();
+    if (/^https?:/.test(target) && !target.startsWith(origin)) return request.abort();
+    return request.continue();
+  });
+  await shopPage.goto(origin + "/shop", { waitUntil: "domcontentloaded", timeout: 10000 });
+  const moringa = shopPage.locator("article").filter({ hasText: "Moringa Powder" }).first();
+  const select = moringa.getByRole("combobox", { name: "Pack size for Moringa Powder" });
+  await select.selectOption("100g");
+  assert.equal(await moringa.getByText("Price on request").count(), 1);
+  assert.equal(await moringa.getByRole("button", { name: "Add to Cart" }).count(), 0);
+  const message = await moringa.getByRole("link", { name: "Ask on WhatsApp" }).getAttribute("href");
+  assert.ok(decodeURIComponent(message).includes("Moringa Powder (100g)"));
+  await select.selectOption("500g");
+  await moringa.getByRole("button", { name: "Increase units of Moringa Powder" }).click();
+  assert.equal(await moringa.getByText("Total ₹798").count(), 1);
+  await moringa.getByRole("button", { name: "Add to Cart" }).click();
+  await shopPage.getByRole("heading", { name: "Your Cart" }).waitFor();
+  assert.equal(await shopPage.getByText("Moringa Powder (500g)").count(), 1);
+  assert.equal(await shopPage.locator("aside").getByText("₹798").count(), 1);
+  await shopPage.close();
+  console.log("Product size, WhatsApp enquiry and cart quantity tests passed.");
+
   console.log("All 39 route-and-viewport checks passed.");
 } finally {
   await browser?.close();
-  server.kill("SIGTERM");
+  if (server.exitCode === null) server.kill("SIGTERM");
+  server.stdout?.destroy();
+  server.stderr?.destroy();
 }
