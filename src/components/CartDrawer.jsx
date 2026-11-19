@@ -31,7 +31,7 @@ export default function CartDrawer() {
             transition={{ type: "tween", duration: 0.3 }}
             className="fixed top-0 right-0 h-full w-full max-w-md bg-brand-cream z-[95] shadow-2xl flex flex-col"
           >
-            <div className="flex items-center justify-between p-6 border-b border-brand-green/10">
+            <div className="flex items-center justify-between p-4 sm:p-6 border-b border-brand-green/10">
               <h2 className="font-heading text-2xl text-brand-dark">Your Cart</h2>
               <button
                 type="button"
@@ -42,7 +42,7 @@ export default function CartDrawer() {
                 <X size={22} />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto p-6">
+            <div className="flex-1 overflow-y-auto p-4 sm:p-6">
               {items.length === 0 ? (
                 <p className="text-brand-muted text-center py-12">
                   Your cart is empty.
@@ -50,11 +50,11 @@ export default function CartDrawer() {
               ) : (
                 <ul className="space-y-6">
                   {items.map((item) => (
-                    <li key={item.id} className="flex gap-4">
+                    <li key={item.id} className="flex gap-3 sm:gap-4 min-w-0">
                       <img
                         src={item.image}
                         alt={item.name}
-                        className="w-20 h-20 rounded-xl object-cover border border-brand-green/10"
+                        className="w-16 h-16 sm:w-20 sm:h-20 shrink-0 rounded-xl object-cover border border-brand-green/10"
                       />
                       <div className="flex-1 min-w-0">
                         <h3 className="font-medium text-brand-dark text-sm truncate">
@@ -103,7 +103,7 @@ export default function CartDrawer() {
               )}
             </div>
             {items.length > 0 && (
-              <div className="p-6 border-t border-brand-green/10 space-y-4">
+              <div className="p-4 sm:p-6 border-t border-brand-green/10 space-y-4">
                 <div className="flex justify-between text-brand-dark font-medium">
                   <span>Total</span>
                   <span className="font-heading text-xl">₹{total}</span>

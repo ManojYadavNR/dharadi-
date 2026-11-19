@@ -6,7 +6,7 @@ export default function Newsletter() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (email) setSubmitted(true);
+    if (email.trim() && email.trim().length <= 254) setSubmitted(true);
   };
 
   return (
@@ -20,14 +20,16 @@ export default function Newsletter() {
       {submitted ? (
         <p className="text-brand-gold text-sm">Thank you for subscribing!</p>
       ) : (
-        <form onSubmit={handleSubmit} className="flex gap-2">
+        <form onSubmit={handleSubmit} className="flex flex-col min-[380px]:flex-row gap-2">
           <input
             type="email"
             required
+            maxLength={254}
+            autoComplete="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Your email"
-            className="flex-1 px-4 py-3 rounded-2xl bg-brand-cream/10 border border-brand-cream/20 text-brand-cream placeholder:text-brand-cream/50 text-sm focus:outline-none focus:border-brand-gold"
+            className="min-w-0 flex-1 px-4 py-3 rounded-2xl bg-brand-cream/10 border border-brand-cream/20 text-brand-cream placeholder:text-brand-cream/50 text-sm focus:outline-none focus:border-brand-gold"
           />
           <button
             type="submit"

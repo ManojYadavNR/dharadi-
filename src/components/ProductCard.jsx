@@ -21,6 +21,7 @@ export default function ProductCard({ product, onQuickView }) {
           src={product.image}
           alt={product.name}
           loading="lazy"
+          decoding="async"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           onError={(e) => {
             e.currentTarget.src = "/products/fresh-oyster-mushrooms.jpg";
