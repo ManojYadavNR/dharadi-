@@ -1,8 +1,6 @@
 import AnimateSection from "./AnimateSection";
 import { Truck } from "lucide-react";
 
-const areas = ["Chintamani", "Bengaluru", "Chikkaballapur"];
-
 export default function DeliveryAreas() {
   return (
     <section className="py-8 sm:py-16 lg:py-20 bg-brand-green-light/40">
@@ -10,23 +8,13 @@ export default function DeliveryAreas() {
         <AnimateSection className="text-center max-w-2xl mx-auto">
           <Truck size={28} className="text-brand-green mx-auto mb-4" strokeWidth={1.5} />
           <h2 className="font-heading text-2xl sm:text-3xl font-semibold text-brand-dark mb-3">
-            Currently Delivering In
+            Delivery Across India
           </h2>
           <p className="text-brand-muted text-sm mb-4 sm:mb-8">
-            Fresh natural products delivered with care across Karnataka.
+            Order Dharadi products from anywhere in India.
           </p>
-          <div className="flex min-w-0 flex-nowrap overflow-x-auto overscroll-x-contain sm:flex-wrap sm:justify-center gap-2 sm:gap-4 dharadi-swipe-rail pb-1">
-            {areas.map((area) => (
-              <span
-                key={area}
-                className="shrink-0 px-4 sm:px-6 py-3 rounded-2xl bg-white border border-brand-green/15 text-brand-dark font-medium text-sm shadow-sm"
-              >
-                {area}
-              </span>
-            ))}
-          </div>
-          <p className="text-brand-muted text-xs mt-4 sm:mt-8">
-            Expanding to more regions soon. Order via WhatsApp for delivery confirmation.
+          <p className="text-brand-muted text-xs mt-2 sm:mt-4">
+            Contact us on WhatsApp to confirm delivery availability, shipping charges, and timelines for your PIN code.
           </p>
         </AnimateSection>
       </div>

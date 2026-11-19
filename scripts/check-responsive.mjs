@@ -125,6 +125,9 @@ try {
     const metrics = await rail.evaluate(el => ({ visible: el.clientWidth, total: el.scrollWidth }));
     assert.ok(metrics.total > metrics.visible + 10, `Expected swipe rail for ${label}`);
   }
+  assert.equal(await mobile.getByText("Delivery Across India", { exact: true }).count(), 1);
+  assert.equal(await mobile.getByText("Currently Delivering In", { exact: true }).count(), 0);
+  assert.ok(await mobile.getByText("shipping charges, and timelines for your PIN code.", { exact: false }).count() > 0);
   // The founder story must be normal, readable narrative text — never a swipe rail.
   const founderStory = mobile.locator("#founder");
   assert.equal(await founderStory.getByLabel("Our Journey — swipe horizontally").count(), 0, "Founder story should not scroll horizontally");
@@ -162,14 +165,17 @@ try {
   const message = await moringa.getByRole("link", { name: "Confirm on WhatsApp" }).getAttribute("href");
   assert.ok(decodeURIComponent(message).includes("Moringa Powder (100g)"));
   await select.selectOption("500g");
-  await moringa.getByRole("button", { name: "Increase units of Moringa Powder" }).click();
-  assert.equal(await moringa.getByText("Total ₹798").count(), 1);
+  assert.equal(await moringa.getByText("Units", { exact: true }).count(), 0, "Units should not appear on product cards");
+  assert.equal(await moringa.getByRole("button", { name: /Increase units/ }).count(), 0, "Product quantities belong in the cart");
   await moringa.getByRole("button", { name: "Add to Cart" }).click();
   await shopPage.getByRole("heading", { name: "Your Cart" }).waitFor();
   assert.equal(await shopPage.getByText("Moringa Powder (500g)").count(), 1);
-  assert.equal(await shopPage.locator("aside").getByText("₹798").count(), 1);
+  const drawer = shopPage.locator("aside");
+  await drawer.getByRole("button", { name: "Increase" }).click();
+  assert.equal(await drawer.getByText("2", { exact: true }).count(), 1, "Cart should let customers increase units");
+  assert.equal(await drawer.getByText("₹798").count(), 1);
   await shopPage.close();
-  console.log("Product size, sample price, WhatsApp enquiry and cart quantity tests passed.");
+  console.log("Product sizes, sample prices, and cart-only quantities passed.");
 
   console.log("All 42 route-and-viewport checks passed.");
 } finally {
