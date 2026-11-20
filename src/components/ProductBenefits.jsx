@@ -4,10 +4,13 @@ import { products } from "../data/products";
 
 export default function ProductBenefits() {
   const [active, setActive] = useState(0);
-  const product = products[active];
+  // Display one benefits tab per original product, not every draft pack variant.
+  // The full products array remains unchanged for the shop and cart.
+  const benefitProducts = products.filter((p) => !p.isPriceDraft);
+  const product = benefitProducts[active];
 
   return (
-    <section className="py-12 sm:py-20 lg:py-28 bg-brand-cream">
+    <section className="dharadi-ref-benefits py-12 sm:py-20 lg:py-28 bg-brand-cream">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center max-w-2xl mx-auto mb-8 sm:mb-12">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
@@ -19,7 +22,7 @@ export default function ProductBenefits() {
         </AnimateSection>
         <div className="flex min-w-0 flex-col gap-5 lg:grid lg:grid-cols-2 lg:gap-10 lg:items-center">
           <div className="flex min-w-0 flex-wrap gap-2 sm:gap-3 dharadi-swipe-rail">
-            {products.map((p, i) => (
+            {benefitProducts.map((p, i) => (
               <button
                 key={p.id}
                 type="button"
