@@ -2,8 +2,7 @@ import { products } from "./products.js";
 
 // All pack-specific prices now live together in products.js.
 // actualPrice = crossed-out reference price; discountedPrice = amount customers pay.
-// isPriceDraft = true marks indicative pricing. Both cart and WhatsApp stay available;
-// the draft-price notice remains visible until prices are approved.
+// Price changes are controlled from the variantPrices block in products.js.
 export const GRAM_SIZES = ["100g", "200g", "500g"];
 
 function baseName(name) {
@@ -43,7 +42,6 @@ export const catalogProducts = [...groups.values()].map((group) => {
         size,
         actualPrice: sku?.actualPrice ?? null,
         discountedPrice: sku?.discountedPrice ?? null,
-        estimated: Boolean(sku?.isPriceDraft),
       };
     }),
   };
