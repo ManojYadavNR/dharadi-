@@ -4,9 +4,9 @@ import { products } from "../data/products";
 
 export default function ProductBenefits() {
   const [active, setActive] = useState(0);
-  // Display one benefits tab per original product, not every draft pack variant.
-  // The full products array remains unchanged for the shop and cart.
-  const benefitProducts = products.filter((p) => !p.isPriceDraft);
+  // Show the original six featured benefits tabs. Remaining pack-size SKUs
+  // belong in the shop selector, not as duplicate benefits tabs.
+  const benefitProducts = products.slice(0, 6);
   const product = benefitProducts[active];
 
   return (
