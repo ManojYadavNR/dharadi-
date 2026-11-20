@@ -67,7 +67,7 @@ export default function ProductPurchase({ product, onAdded, compact = false }) {
           rel="noopener noreferrer"
           className="min-w-0 flex-1 inline-flex items-center justify-center text-center px-1.5 sm:px-4 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-[#25D366] text-white text-[10px] sm:text-sm font-medium hover:bg-[#1da851] transition-colors"
         >
-          {isSample ? "Confirm on WhatsApp" : "Order on WhatsApp"}
+          Order on WhatsApp
         </a>
       </div>
     </div>

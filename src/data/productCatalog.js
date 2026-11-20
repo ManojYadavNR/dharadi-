@@ -2,7 +2,8 @@ import { products } from "./products.js";
 
 // All pack-specific prices now live together in products.js.
 // actualPrice = crossed-out reference price; discountedPrice = amount customers pay.
-// isPriceDraft = true keeps an unapproved sample price as WhatsApp enquiry only.
+// isPriceDraft = true marks indicative pricing. Both cart and WhatsApp stay available;
+// the draft-price notice remains visible until prices are approved.
 export const GRAM_SIZES = ["100g", "200g", "500g"];
 
 function baseName(name) {
@@ -50,7 +51,7 @@ export const catalogProducts = [...groups.values()].map((group) => {
 
 export function variantProduct(group, size) {
   const match = group.productsBySize[size];
-  if (!match || match.isPriceDraft) return null;
+  if (!match || !Number.isFinite(match.discountedPrice)) return null;
   // The cart and checkout already sum item.price. Always assign discountedPrice here.
   return { ...match, price: match.discountedPrice, packSize: size };
 }
