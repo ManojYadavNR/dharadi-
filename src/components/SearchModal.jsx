@@ -78,7 +78,7 @@ export default function SearchModal({ isOpen, onClose }) {
                     <button
                       type="button"
                       onClick={() => {
-                        addToCart(p);
+                        addToCart({ ...p, price: p.discountedPrice });
                         handleClose();
                       }}
                       className="w-full flex items-center gap-4 p-3 rounded-2xl hover:bg-white transition-colors text-left"
@@ -86,13 +86,16 @@ export default function SearchModal({ isOpen, onClose }) {
                       <img
                         src={p.image}
                         alt=""
+                        width={48}
+                        height={48}
+                        decoding="async"
                         className="w-12 h-12 rounded-xl object-cover"
                       />
                       <div>
                         <p className="font-medium text-brand-dark text-sm">
                           {p.name}
                         </p>
-                        <p className="text-brand-green text-sm">₹{p.price}</p>
+                        <p className="text-brand-green text-sm">₹{p.discountedPrice}</p>
                       </div>
                     </button>
                   </li>
