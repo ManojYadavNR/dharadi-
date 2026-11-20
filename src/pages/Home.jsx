@@ -21,11 +21,11 @@ export default function Home() {
       <SocialProof />
       <TrustBar />
       <WhyChoose />
-      <Process />
       <About />
-      <FounderStory />
+      <Process />
       <BrandIntention />
       <ProductBenefits />
+      <FounderStory />
       <Testimonials />
       <Wholesale />
       <Instagram />
