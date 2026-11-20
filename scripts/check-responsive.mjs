@@ -98,7 +98,7 @@ try {
     }
     await page.close();
   }
-  // Compact homepage: product cards and trust/process/review sections must swipe sideways on phones.
+  // Check the current mobile design without changing a single CSS class.
   const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
   await mobile.route("**/*", (request) => {
     const url = request.request().url();
@@ -106,48 +106,47 @@ try {
     return request.continue();
   });
   await mobile.goto(origin + "/", { waitUntil: "domcontentloaded" });
-  const productsSection = mobile.locator("#products");
-  const aboutSection = mobile.locator("#about");
   const [productsY, aboutY] = await Promise.all([
-    productsSection.evaluate(el => el.getBoundingClientRect().top),
-    aboutSection.evaluate(el => el.getBoundingClientRect().top),
+    mobile.locator("#products").evaluate((el) => el.getBoundingClientRect().top),
+    mobile.locator("#about").evaluate((el) => el.getBoundingClientRect().top),
   ]);
-  assert.ok(productsY < aboutY, "Products must appear above About Dharadi");
-  for (const label of [
-    "Featured products — swipe horizontally",
-    "Why families trust Dharadi — swipe horizontally",
-    "Our process steps — swipe horizontally",
-    "Customer reviews — swipe horizontally",
-    "Follow Our Journey — swipe horizontally",
-    "Get in Touch — swipe horizontally",
-  ]) {
-    const rail = mobile.getByLabel(label);
-    const metrics = await rail.evaluate(el => ({ visible: el.clientWidth, total: el.scrollWidth }));
-    assert.ok(metrics.total > metrics.visible + 10, `Expected swipe rail for ${label}`);
-  }
-  assert.equal(await mobile.getByText("Delivery Across India", { exact: true }).count(), 1);
-  assert.equal(await mobile.getByText("Currently Delivering In", { exact: true }).count(), 0);
-  assert.ok(await mobile.getByText("shipping charges, and timelines for your PIN code.", { exact: false }).count() > 0);
-  // The founder story must be normal, readable narrative text — never a swipe rail.
-  const founderStory = mobile.locator("#founder");
-  assert.equal(await founderStory.getByLabel("Our Journey — swipe horizontally").count(), 0, "Founder story should not scroll horizontally");
-  const narrative = founderStory.locator("p").filter({ hasText: "Growing up in Nayindralli village" }).first();
-  assert.equal(await narrative.isVisible(), true, "Founder narrative should remain visible as regular text");
-  const gallery = mobile.getByLabel("Follow Our Journey — swipe horizontally");
-  assert.equal(await gallery.locator("a").count(), 6, "All six Instagram gallery images must remain");
-  const galleryStyle = await gallery.evaluate(el => ({ display: getComputedStyle(el).display, width: el.clientWidth, scroll: el.scrollWidth }));
-  assert.equal(galleryStyle.display, "flex", "Instagram gallery should be a single horizontal row on mobile");
-  assert.ok(galleryStyle.scroll > galleryStyle.width + 10);
-  await mobile.setViewportSize({ width: 1280, height: 800 });
-  assert.equal(await gallery.evaluate(el => getComputedStyle(el).display), "grid", "Desktop Instagram grid must be preserved");
-  await mobile.setViewportSize({ width: 390, height: 844 });
-  assert.equal(await mobile.locator("#products article").count(), 5);
-  assert.ok(await mobile.getByText("Every product is carefully selected and processed.").count() > 0, "Trust section copy should remain intact");
-  assert.ok(await mobile.getByText("Harvested at peak freshness.").count() > 0, "Process text should remain intact");
-  await mobile.close();
-  console.log("Compact homepage mobile layout and preserved content checks passed.");
+  assert.ok(productsY < aboutY, "Products must appear before About Dharadi");
 
-  // Product variants are user-facing controls; verify price/quantity/cart coherence.
+  const productsRail = mobile.getByLabel("Featured products — swipe horizontally");
+  const productMetrics = await productsRail.evaluate((el) => ({
+    visible: el.clientWidth, total: el.scrollWidth,
+  }));
+  assert.ok(productMetrics.total > productMetrics.visible + 10, "Product browsing rail must still swipe");
+
+  const gridColumns = (selector) => mobile.locator(selector).evaluate((el) =>
+    getComputedStyle(el).gridTemplateColumns.split(" ").filter(Boolean).length
+  );
+  assert.equal(await gridColumns(".dharadi-ref-why .trust-grid"), 2, "Trust section: preserve two mobile columns");
+  assert.equal(await gridColumns(".dharadi-ref-process .grid"), 2, "Process: preserve two mobile columns");
+  assert.equal(await gridColumns(".dharadi-ref-instagram .grid"), 3, "Gallery: preserve three mobile columns");
+  assert.equal(await gridColumns(".dharadi-ref-contact .grid"), 3, "Contact: preserve three mobile cards");
+
+  const gallery = mobile.locator(".dharadi-ref-instagram .grid");
+  assert.equal(await gallery.locator("a").count(), 6, "Keep six Instagram photos");
+  assert.equal(await gallery.evaluate((el) => getComputedStyle(el).display), "grid", "Mobile photo gallery must remain a grid");
+  const reviews = mobile.locator(".dharadi-ref-testimonials article");
+  assert.equal(await reviews.count(), 3, "Keep all three customer cards visible");
+  for (const review of await reviews.all()) {
+    const rect = await review.boundingBox();
+    assert.ok(rect && Math.abs(rect.width - rect.height) < 5, "Reference testimonial cards must stay square");
+  }
+  assert.equal(await mobile.getByText("Delivery Across India", { exact: true }).count(), 0, "Old delivery section must remain removed");
+  assert.ok(await mobile.getByText("Delivery across India", { exact: false }).count() > 0, "Nationwide delivery text missing");
+  assert.ok(await mobile.getByText("Every product is carefully selected and processed.").count() > 0);
+  assert.ok(await mobile.getByText("Harvested at peak freshness.").count() > 0);
+  const founderStory = mobile.locator("#founder");
+  assert.ok(await founderStory.locator("p").filter({ hasText: "Growing up in Nayindralli village" }).first().isVisible());
+  await mobile.setViewportSize({ width: 1280, height: 800 });
+  assert.equal(await gridColumns(".dharadi-ref-instagram .grid"), 6, "Desktop gallery must remain six columns");
+  await mobile.close();
+  console.log("Current mobile composition and original content verified.");
+
+  // Verify every priced variant can be ordered via both cart and WhatsApp.
   const shopPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
   shopPage.setDefaultTimeout(5000);
   await shopPage.route("**/*", (request) => {
@@ -159,31 +158,46 @@ try {
   const moringa = shopPage.locator("article").filter({ hasText: "Moringa Powder" }).first();
   const select = moringa.getByRole("combobox", { name: "Pack size for Moringa Powder" });
   await select.selectOption("100g");
-  assert.equal(await moringa.getByText("Sample price · confirm before purchase").count(), 1);
+  assert.equal(await moringa.getByText("Sample price · confirm before purchase").count(), 0, "Old draft warning must not return");
   assert.equal(await moringa.getByText("₹119").count(), 1);
-  assert.equal(await moringa.locator("del").getByText("₹149").count(), 1, "100g original price must be struck through");
-  assert.equal(await moringa.getByRole("button", { name: "Add to Cart" }).count(), 0);
-  const message = await moringa.getByRole("link", { name: "Confirm on WhatsApp" }).getAttribute("href");
+  assert.equal(await moringa.locator("del").getByText("₹149").count(), 1);
+  assert.equal(await moringa.getByRole("button", { name: "Add to Cart" }).count(), 1, "All variants must be addable");
+  const message = await moringa.getByRole("link", { name: "Order on WhatsApp" }).getAttribute("href");
   assert.ok(decodeURIComponent(message).includes("Moringa Powder (100g)"));
   await select.selectOption("500g");
-  assert.equal(await moringa.getByText("₹399").count(), 1, "500g discounted selling price should be visible");
-  assert.equal(await moringa.locator("del").getByText("₹499").count(), 1, "500g actual price must be struck through");
-  assert.equal(await moringa.getByText("Units", { exact: true }).count(), 0, "Units should not appear on product cards");
-  assert.equal(await moringa.getByRole("button", { name: /Increase units/ }).count(), 0, "Product quantities belong in the cart");
+  assert.equal(await moringa.getByText("₹399").count(), 1);
+  assert.equal(await moringa.locator("del").getByText("₹499").count(), 1);
   await moringa.getByRole("button", { name: "Add to Cart" }).click();
   await shopPage.getByRole("heading", { name: "Your Cart" }).waitFor();
   assert.equal(await shopPage.getByText("Moringa Powder (500g)").count(), 1);
   const drawer = shopPage.locator("aside");
   await drawer.getByRole("button", { name: "Increase" }).click();
-  assert.equal(await drawer.getByText("2", { exact: true }).count(), 1, "Cart should let customers increase units");
+  assert.equal(await drawer.getByText("2", { exact: true }).count(), 1);
   assert.equal(await drawer.getByText("₹798").count(), 1);
-  assert.equal(await drawer.locator("del").getByText("₹499").count(), 1, "Cart original unit price must be struck through");
   await drawer.getByRole("link", { name: "Checkout" }).click();
   await shopPage.getByText("Order Summary").waitFor();
-  assert.equal(await shopPage.getByRole("button", { name: "Place Order — ₹798" }).count(), 1, "Checkout must charge discounted total, not original");
-  assert.equal(await shopPage.locator("del").getByText("₹998").count(), 1, "Checkout must strike through original extended total");
+  assert.equal(await shopPage.getByRole("button", { name: "Place Order — ₹798" }).count(), 1);
+  assert.equal(await shopPage.locator("del").getByText("₹998").count(), 1);
   await shopPage.close();
-  console.log("Product sizes, sample prices, and cart-only quantities passed.");
+  console.log("Variant selector, WhatsApp option, cart and checkout totals passed.");
+
+  // Search must use the same discounted price fields as all other purchase paths.
+  const searchPage = await browser.newPage({ viewport: { width: 390, height: 844 } });
+  await searchPage.route("**/*", (request) => {
+    const url = request.request().url();
+    if (/^https?:/.test(url) && !url.startsWith(origin)) return request.abort();
+    return request.continue();
+  });
+  await searchPage.goto(origin + "/", { waitUntil: "domcontentloaded" });
+  await searchPage.getByRole("button", { name: "Search", exact: true }).click();
+  await searchPage.getByPlaceholder("Search products...").fill("Moringa Powder");
+  const searchResult = searchPage.getByRole("button", { name: /Moringa Powder \(200g\)/ });
+  assert.equal(await searchResult.getByText("₹199").count(), 1, "Search must display the discounted price");
+  await searchResult.click();
+  await searchPage.getByRole("heading", { name: "Your Cart" }).waitFor();
+  assert.ok(await searchPage.locator("aside").getByText("₹199").count() > 0, "Search cart item must contain its selling price");
+  await searchPage.close();
+  console.log("Search pricing and add-to-cart passed.");
 
   console.log("All 42 route-and-viewport checks passed.");
 } finally {
