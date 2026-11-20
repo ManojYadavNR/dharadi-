@@ -37,7 +37,7 @@ export default function Instagram() {
   return (
     <section className="py-12 sm:py-20 lg:py-28 bg-brand-cream">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <AnimateSection className="text-center mb-12">
+        <AnimateSection className="text-center mb-8 sm:mb-12">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
             Follow Our Journey
           </h2>
@@ -54,14 +54,14 @@ export default function Instagram() {
             Fresh updates from our farms, products, and community.
           </p>
         </AnimateSection>
-        <div aria-label="Follow Our Journey — swipe horizontally" className="flex min-w-0 overflow-x-auto snap-x snap-mandatory overscroll-x-contain gap-2 pb-2 -mr-5 pr-5 md:mr-0 md:pr-0 md:pb-0 md:grid md:grid-cols-3 lg:grid-cols-6 sm:gap-3 dharadi-swipe-rail">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6">
           {images.map((src, i) => (
             <a
               key={i}
               href="https://instagram.com/dharadi_"
               target="_blank"
               rel="noopener noreferrer"
-              className="block w-[43vw] max-w-[190px] shrink-0 snap-start aspect-square rounded-2xl overflow-hidden group md:w-auto md:max-w-none md:shrink"
+              className="block min-w-0 aspect-square rounded-lg sm:rounded-2xl overflow-hidden group"
             >
               <img
                 src={src}

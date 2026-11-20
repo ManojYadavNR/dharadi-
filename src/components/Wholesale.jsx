@@ -6,19 +6,19 @@ export default function Wholesale() {
   return (
     <section id="partner" className="py-12 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <div className="bg-brand-cream rounded-3xl p-5 sm:p-10 lg:p-16 border border-brand-green/10 text-center max-w-4xl mx-auto">
+        <div className="bg-brand-cream rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:p-16 border border-brand-green/10 text-center max-w-4xl mx-auto">
           <AnimateSection>
             <span className="text-brand-gold text-sm font-medium tracking-widest uppercase">
               Partnership
             </span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark mt-3 mb-6">
+            <h2 className="font-heading text-2xl sm:text-4xl font-semibold text-brand-dark mt-2 mb-4 sm:mb-6">
               Partner With Dharadi
             </h2>
             <p className="text-brand-muted leading-relaxed mb-4">
               Join our growing network of retailers, distributors, and
               health-conscious businesses.
             </p>
-            <p className="text-brand-muted leading-relaxed mb-10">
+            <p className="text-brand-muted leading-relaxed mb-6 sm:mb-10">
               Bring premium natural products to your customers.
             </p>
             <div className="flex flex-wrap justify-center gap-3 sm:gap-4">

@@ -23,26 +23,25 @@ export default function Testimonials() {
   return (
     <section className="py-9 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
-        <AnimateSection className="text-center mb-5 sm:mb-12 lg:mb-14">
+        <AnimateSection className="text-center mb-9 sm:mb-12 lg:mb-14">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
             What Our Customers Say
           </h2>
         </AnimateSection>
-        <p className="md:hidden text-xs text-brand-muted mb-3" aria-hidden="true">Swipe to read every review →</p>
-        <div aria-label="Customer reviews — swipe horizontally" className="flex min-w-0 overflow-x-auto snap-x snap-mandatory overscroll-x-contain gap-3 pb-3 -mr-5 pr-5 md:mr-0 md:pr-0 md:pb-0 md:grid md:grid-cols-3 md:gap-6 lg:gap-8 dharadi-swipe-rail">
+        <div aria-label="Customer reviews — swipe horizontally" className="flex min-w-0 overflow-x-auto snap-x snap-mandatory gap-2.5 sm:gap-6 lg:gap-8 pb-2 dharadi-swipe-rail">
           {reviews.map((review, i) => (
-            <AnimateSection key={review.author} delay={i * 0.08} className="w-[75vw] max-w-[310px] shrink-0 snap-start md:w-auto md:max-w-none md:shrink">
-              <article className="bg-brand-cream rounded-2xl sm:rounded-3xl p-4 sm:p-8 lg:p-10 border border-brand-green/10 h-full flex flex-col text-left sm:text-center">
+            <AnimateSection key={review.author} delay={i * 0.08} className="min-w-0 flex-[0_0_calc((100%-1.25rem)/3)] sm:flex-[0_0_calc((100%-3rem)/3)] lg:flex-[0_0_calc((100%-4rem)/3)] snap-start">
+              <article className="bg-brand-cream rounded-xl sm:rounded-3xl p-2.5 sm:p-8 lg:p-10 border border-brand-green/10 h-full flex flex-col text-center">
                 <Quote
-                  size={32}
-                  className="text-brand-gold/50 mb-2 sm:mx-auto sm:mb-5"
+                  size={20}
+                  className="text-brand-gold/50 mx-auto mb-2 sm:mb-5"
                   strokeWidth={1}
                 />
-                <p className="font-heading text-base sm:text-lg text-brand-dark italic leading-relaxed mb-3 sm:mb-6 flex-1">
+                <p className="font-heading text-[10px] sm:text-lg text-brand-dark italic leading-relaxed mb-3 sm:mb-6 flex-1">
                   &ldquo;{review.text}&rdquo;
                 </p>
-                <p className="text-brand-green font-medium">{review.author}</p>
-                <p className="text-brand-muted text-sm">{review.location}</p>
+                <p className="text-brand-green text-[10px] sm:text-base font-medium">{review.author}</p>
+                <p className="text-brand-muted text-[9px] sm:text-sm">{review.location}</p>
               </article>
             </AnimateSection>
           ))}

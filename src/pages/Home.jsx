@@ -4,7 +4,6 @@ import TrustBar from "../components/TrustBar";
 import About from "../components/About";
 import FounderStory from "../components/FounderStory";
 import FeaturedProducts from "../components/FeaturedProducts";
-import DeliveryAreas from "../components/DeliveryAreas";
 import WhyChoose from "../components/WhyChoose";
 import Process from "../components/Process";
 import BrandIntention from "../components/BrandIntention";
@@ -23,7 +22,6 @@ export default function Home() {
       <TrustBar />
       <About />
       <FounderStory />
-      <DeliveryAreas />
       <WhyChoose />
       <Process />
       <BrandIntention />
