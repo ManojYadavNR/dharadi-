@@ -35,7 +35,7 @@ const images = [
 
 export default function Instagram() {
   return (
-    <section className="py-12 sm:py-20 lg:py-28 bg-brand-cream">
+    <section className="dharadi-ref-instagram py-12 sm:py-20 lg:py-28 bg-brand-cream">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center mb-8 sm:mb-12">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
