@@ -11,6 +11,8 @@ export default function About() {
               <img
                 src={feed3}
                 alt="Sustainable farming at Dharadi"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover"
               />
             </div>
