@@ -1,5 +1,6 @@
 import { renderToString } from "react-dom/server";
 import { MemoryRouter } from "react-router-dom";
+import { LazyMotion, domAnimation } from "framer-motion";
 import { CartProvider } from "./context/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -17,6 +18,7 @@ export function renderRoute(path) {
   const page = path === "/shop" ? <Shop /> : path === "/checkout" ? <Checkout /> : <Home />;
   return renderToString(
     <CartProvider>
+      <LazyMotion features={domAnimation}>
       <MemoryRouter initialEntries={[path]}>
         <SeoMeta />
         <Header onSearchOpen={() => {}} />
@@ -26,6 +28,7 @@ export function renderRoute(path) {
         <SearchModal isOpen={false} onClose={() => {}} />
         <WhatsAppButton />
       </MemoryRouter>
+      </LazyMotion>
     </CartProvider>
   );
 }
