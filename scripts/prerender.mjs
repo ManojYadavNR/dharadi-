@@ -120,7 +120,7 @@ await writeFile(
 );
 await writeFile(
   join(root, "robots.txt"),
-  `User-agent: *\nAllow: /\nDisallow: /checkout\n\nSitemap: ${site}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`,
   "utf8"
 );
 await rm(resolve(".prerender-server"), { recursive: true, force: true });
