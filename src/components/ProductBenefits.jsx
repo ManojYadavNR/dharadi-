@@ -42,6 +42,8 @@ export default function ProductBenefits() {
               <img
                 src={product.image}
                 alt={product.name}
+                loading="lazy"
+                decoding="async"
                 className="w-full h-32 sm:h-48 object-cover rounded-xl sm:rounded-2xl mb-4 sm:mb-6"
               />
               <h3 className="font-heading text-lg sm:text-2xl text-brand-dark mb-2 sm:mb-3">
