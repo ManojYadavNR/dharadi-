@@ -1,19 +1,19 @@
 import { X, Check } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import ProductPurchase from "./ProductPurchase";
 
 export default function ProductQuickView({ product, onClose }) {
   return (
     <AnimatePresence>
       <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-4">
-        <motion.div
+        <m.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           className="absolute inset-0 bg-brand-dark/50 backdrop-blur-sm"
           onClick={onClose}
         />
-        <motion.div
+        <m.div
           initial={{ opacity: 0, scale: 0.95, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -51,7 +51,7 @@ export default function ProductQuickView({ product, onClose }) {
               <ProductPurchase product={product} onAdded={onClose} />
             </div>
           </div>
-        </motion.div>
+        </m.div>
       </div>
     </AnimatePresence>
   );
