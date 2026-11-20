@@ -1,8 +1,8 @@
-import { motion } from "framer-motion";
+import { m } from "framer-motion";
 
 export default function AnimateSection({ children, className = "", delay = 0, immediate = false }) {
   return (
-    <motion.div
+    <m.div
       initial={immediate ? false : { opacity: 0, y: 24 }}
       animate={immediate ? { opacity: 1, y: 0 } : undefined}
       whileInView={immediate ? undefined : { opacity: 1, y: 0 }}
@@ -11,6 +11,6 @@ export default function AnimateSection({ children, className = "", delay = 0, im
       className={className}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
