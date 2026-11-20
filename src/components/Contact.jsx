@@ -90,7 +90,7 @@ export default function Contact() {
           </h2>
           <p className="text-brand-muted mt-2 sm:mt-3 text-xs sm:text-sm max-w-md mx-auto">
             Reach us by phone, WhatsApp, or Instagram. We&apos;re happy to help with
-            orders and delivery across Chintamani, Bengaluru, and Kolar.
+            orders and delivery across India.
           </p>
         </AnimateSection>
         <div className="grid min-w-0 grid-cols-3 gap-2.5 sm:gap-6 max-w-4xl mx-auto">
