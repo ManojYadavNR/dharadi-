@@ -78,7 +78,7 @@ try {
         assert.equal(await page.locator("header").getByText("DHARADI", { exact: true }).isVisible(), true, "Brand name must show beside mobile logo");
         const headerSurface = await page.locator("header").evaluate((el) => getComputedStyle(el).backgroundColor);
         assert.ok(headerSurface.startsWith("rgb(") && headerSurface !== "rgba(0, 0, 0, 0)", "Mobile header background must be opaque before scroll");
-        const heroTitle = page.locator("#home h1");
+        const heroTitle = page.locator("#home h1:visible");
         assert.equal(await heroTitle.isVisible(), true, "Hero headline missing at initial load");
         assert.equal(await heroTitle.evaluate(el => getComputedStyle(el.parentElement).opacity), "1", "Hero animation must not hide first-screen headline");
         assert.equal(await page.getByText("At Dharadi, we bring nature's finest products directly from trusted farms to your home", { exact: false }).count() > 0, true, "Mobile hero details must be rendered without a disclosure");
