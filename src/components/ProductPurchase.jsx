@@ -9,15 +9,12 @@ export default function ProductPurchase({ product, onAdded, compact = false }) {
   const selected = product.variants.find((variant) => variant.size === size);
   const price = selected?.discountedPrice ?? null;
   const actualPrice = selected?.actualPrice ?? null;
-  const isSample = Boolean(selected?.estimated);
   const cartProduct = variantProduct(product, size);
   const orderMessage = encodeURIComponent(
     `Hello Dharadi! I'm interested in ${product.name} (${size}). ` +
       (price === null
         ? "Please confirm the price, availability and delivery."
-        : isSample
-          ? `Indicative discounted price ₹${price} per pack. Please confirm the final price, quantity, availability and delivery before ordering.`
-          : `Discounted selling price: ₹${price} per pack. Please confirm the quantity, availability and delivery.`)
+        : `Discounted selling price: ₹${price} per pack. Please confirm the quantity, availability and delivery.`)
   );
 
   return (
@@ -47,7 +44,6 @@ export default function ProductPurchase({ product, onAdded, compact = false }) {
           <span className="text-xs sm:text-sm font-medium text-brand-green">Price to be confirmed</span>
         )}
       </div>
-      {isSample && <p className="text-[10px] leading-snug text-amber-800">Sample price · confirm before purchase</p>}
       <div className={`mt-2 flex gap-1.5 sm:gap-2 ${compact ? "flex-col" : "flex-col sm:flex-row"}`}>
         {cartProduct && (
           <button
