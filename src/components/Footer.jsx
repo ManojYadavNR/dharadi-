@@ -14,11 +14,11 @@ const quickLinks = [
 export default function Footer() {
   return (
     <footer className="bg-brand-green text-brand-cream">
-      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <div className="grid min-w-0 grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-8 mb-10 sm:mb-14">
-          <div className="lg:col-span-1">
+      <div className="max-w-7xl mx-auto px-5 lg:px-8 py-10 sm:py-16 lg:py-20">
+        <div className="grid min-w-0 grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-8 sm:gap-12 lg:gap-8 mb-10 sm:mb-14">
+          <div className="min-w-0 lg:col-span-1">
             <Logo size="lg" variant="onDark" className="mb-5" />
-            <h3 className="font-heading text-2xl tracking-wide mb-1">DHARADI</h3>
+            <h3 className="font-heading text-xl sm:text-2xl tracking-wide mb-1">DHARADI</h3>
             <p className="text-brand-gold text-sm tracking-widest uppercase mb-4">
               From Soil to Soul
             </p>
@@ -55,7 +55,7 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div className="md:col-span-2 lg:col-span-2">
+          <div className="col-span-2 md:col-span-2 lg:col-span-2">
             <Newsletter />
           </div>
         </div>
