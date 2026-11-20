@@ -80,3 +80,259 @@
   h1, h2, h3, h4 { overflow-wrap: break-word; }
   button, input, textarea { max-width: 100%; }
 }
+
+
+/*
+ * Screenshot-matched compact MOBILE sections, scoped to the requested
+ * homepage blocks. Desktop/tablet layout and brand theme tokens stay intact.
+ * The older reference was viewed at a reduced page scale: preserve its
+ * relative spacing and card counts at a true narrow mobile viewport.
+ */
+@media (max-width: 639px) {
+  .dharadi-ref-why,
+  .dharadi-ref-process,
+  .dharadi-ref-intention,
+  .dharadi-ref-benefits,
+  .dharadi-ref-testimonials,
+  .dharadi-ref-wholesale,
+  .dharadi-ref-instagram,
+  .dharadi-ref-contact,
+  .dharadi-ref-footer {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  /* Why Families Trust Dharadi: 2 columns, 3 tightly spaced rows. */
+  .dharadi-ref-why { padding-block: 38px 41px; }
+  .dharadi-ref-why > div { padding-inline: 11px; }
+  .dharadi-ref-why > div > .text-center { margin-bottom: 26px; }
+  .dharadi-ref-why h2 { font-size: 18px; line-height: 1.3; }
+  .dharadi-ref-why .trust-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 9px;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+  .dharadi-ref-why .trust-item {
+    width: auto; max-width: none; min-width: 0; flex: none;
+  }
+  .dharadi-ref-why .trust-card {
+    display: block; min-height: 75px; padding: 12px 11px;
+    border-radius: 8px; transform: none;
+  }
+  .dharadi-ref-why .trust-card svg {
+    width: 15px; height: 15px; margin-bottom: 7px;
+  }
+  .dharadi-ref-why .trust-card h3 {
+    font-size: 11px; line-height: 1.25; margin-bottom: 3px;
+  }
+  .dharadi-ref-why .trust-card p { font-size: 8px; line-height: 1.4; }
+
+  /* Our Process: original centred 01-05 steps without swipe cards. */
+  .dharadi-ref-process { padding-block: 33px 39px; }
+  .dharadi-ref-process > div { padding-inline: 11px; }
+  .dharadi-ref-process .text-center.max-w-2xl { margin-bottom: 27px; }
+  .dharadi-ref-process span { font-size: 8px; }
+  .dharadi-ref-process h2 { margin-top: 6px; font-size: 19px; line-height: 1.28; }
+  .dharadi-ref-process .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 16px; row-gap: 20px;
+  }
+  .dharadi-ref-process .grid > div { padding: 0; border: none; background: transparent; }
+  .dharadi-ref-process .grid .inline-flex {
+    width: 29px; height: 29px; margin-bottom: 10px;
+    font-size: 10px; line-height: 1;
+  }
+  .dharadi-ref-process .grid h3 { font-size: 11px; line-height: 1.4; margin-bottom: 3px; }
+  .dharadi-ref-process .grid p { font-size: 8px; line-height: 1.45; }
+
+  /* Philosophy: original dark-green band, short and centred. */
+  .dharadi-ref-intention { padding-block: 43px 44px; }
+  .dharadi-ref-intention > div.relative { padding-inline: 20px; }
+  .dharadi-ref-intention span { font-size: 8px; }
+  .dharadi-ref-intention h2 {
+    margin-top: 7px; margin-bottom: 17px; font-size: 20px; line-height: 1.3;
+  }
+  .dharadi-ref-intention .space-y-5 { font-size: 9px; line-height: 1.5; }
+  .dharadi-ref-intention .space-y-5 > :not(:first-child) { margin-top: 12px; }
+  .dharadi-ref-intention .space-y-5 .font-heading {
+    font-size: 13px; line-height: 1.5;
+  }
+  .dharadi-ref-intention .space-y-5 .italic { padding-top: 7px; }
+
+  /* Product Benefits: six core products, small original tabs and stacked card. */
+  .dharadi-ref-benefits { padding-block: 36px 40px; }
+  .dharadi-ref-benefits > div { padding-inline: 11px; }
+  .dharadi-ref-benefits .text-center.max-w-2xl { margin-bottom: 27px; }
+  .dharadi-ref-benefits h2 { font-size: 20px; line-height: 1.25; }
+  .dharadi-ref-benefits .text-center p {
+    margin-top: 5px; font-size: 9px; line-height: 1.45;
+  }
+  .dharadi-ref-benefits > div > .flex { gap: 20px; }
+  .dharadi-ref-benefits .dharadi-swipe-rail {
+    display: flex; flex-wrap: wrap; gap: 5px; overflow: visible; padding: 0;
+  }
+  .dharadi-ref-benefits .dharadi-swipe-rail button {
+    font-size: 7.5px; line-height: 1.1; padding: 6px 8px;
+    border-radius: 8px; min-height: 0;
+  }
+  .dharadi-ref-benefits .shadow-sm {
+    padding: 14px; border-radius: 11px;
+  }
+  .dharadi-ref-benefits .shadow-sm img {
+    width: 100%; height: 95px; margin: 0 0 10px; float: none;
+    border-radius: 4px; object-fit: cover;
+  }
+  .dharadi-ref-benefits .shadow-sm h3 { font-size: 13px; line-height: 1.35; margin-bottom: 5px; }
+  .dharadi-ref-benefits .shadow-sm > p { font-size: 9px; line-height: 1.4; margin-bottom: 12px; }
+  .dharadi-ref-benefits .shadow-sm ul { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 7px; }
+  .dharadi-ref-benefits .shadow-sm li {
+    border-radius: 5px; padding: 8px 4px;
+    font-size: 8px; line-height: 1.3;
+  }
+
+  /* Reviews: exactly three equal visible cards, swipe when more are present. */
+  .dharadi-ref-testimonials { padding-block: 44px 45px; }
+  .dharadi-ref-testimonials > div { padding-inline: 11px; }
+  .dharadi-ref-testimonials .text-center { margin-bottom: 28px; }
+  .dharadi-ref-testimonials h2 { font-size: 20px; line-height: 1.3; }
+  .dharadi-ref-testimonials .dharadi-swipe-rail {
+    gap: 9px; padding: 0 0 4px; margin: 0;
+    scroll-snap-type: x mandatory;
+  }
+  .dharadi-ref-testimonials .dharadi-ref-review-item {
+    flex: 0 0 calc((100% - 18px) / 3); min-width: 0; width: auto; max-width: none;
+  }
+  .dharadi-ref-testimonials article {
+    padding: 12px 7px; min-height: 104px; border-radius: 10px;
+    text-align: center;
+  }
+  .dharadi-ref-testimonials article svg {
+    width: 16px; height: 16px; margin: 0 auto 8px;
+  }
+  .dharadi-ref-testimonials article .italic {
+    font-size: 9px; line-height: 1.4; margin-bottom: 9px;
+  }
+  .dharadi-ref-testimonials article p:not(.italic) {
+    font-size: 8px; line-height: 1.45;
+  }
+
+  /* Partnership: compact centred cream rectangle and small paired buttons. */
+  .dharadi-ref-wholesale { padding-block: 34px 37px; }
+  .dharadi-ref-wholesale > div { padding-inline: 20px; }
+  .dharadi-ref-wholesale > div > div {
+    padding: 22px 14px; border-radius: 10px;
+  }
+  .dharadi-ref-wholesale span { font-size: 8px; }
+  .dharadi-ref-wholesale h2 {
+    font-size: 20px; line-height: 1.25; margin: 7px 0 13px;
+  }
+  .dharadi-ref-wholesale p {
+    font-size: 9px; line-height: 1.45; margin-bottom: 8px;
+  }
+  .dharadi-ref-wholesale p + p { margin-bottom: 21px; }
+  .dharadi-ref-wholesale .flex { gap: 8px; }
+  .dharadi-ref-wholesale .flex a {
+    padding: 8px 14px; border-radius: 8px;
+    font-size: 9px; line-height: 1.2; min-height: 0;
+  }
+
+  /* Instagram: the same six images in a 3 by 2 grid (never a swipe rail). */
+  .dharadi-ref-instagram { padding-block: 35px 38px; }
+  .dharadi-ref-instagram > div { padding-inline: 11px; }
+  .dharadi-ref-instagram .text-center { margin-bottom: 24px; }
+  .dharadi-ref-instagram h2 { font-size: 20px; line-height: 1.25; }
+  .dharadi-ref-instagram .text-center a {
+    font-size: 10px; gap: 5px; margin-top: 7px;
+  }
+  .dharadi-ref-instagram .text-center a svg { width: 12px; height: 12px; }
+  .dharadi-ref-instagram .text-center p {
+    font-size: 8px; line-height: 1.4; margin-top: 5px;
+  }
+  .dharadi-ref-instagram .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px;
+  }
+  .dharadi-ref-instagram .grid a { border-radius: 7px; }
+
+  /* Contact: heading above three uniformly compact cards with legible lines. */
+  .dharadi-ref-contact { padding-block: 37px 38px; }
+  .dharadi-ref-contact > div { padding-inline: 17px; }
+  .dharadi-ref-contact .text-center { margin-bottom: 28px; }
+  .dharadi-ref-contact h2 { font-size: 20px; line-height: 1.25; }
+  .dharadi-ref-contact .text-center p {
+    margin: 6px auto 0; max-width: 260px;
+    font-size: 9px; line-height: 1.38;
+  }
+  .dharadi-ref-contact .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 9px;
+  }
+  .dharadi-ref-contact .grid > div > div {
+    padding: 12px 10px; border-radius: 9px; min-height: 118px;
+  }
+  .dharadi-ref-contact .grid svg {
+    width: 15px; height: 15px; margin-bottom: 8px;
+  }
+  .dharadi-ref-contact .grid h3 {
+    font-size: 10px; line-height: 1.3; margin-bottom: 6px;
+  }
+  .dharadi-ref-contact .grid a,
+  .dharadi-ref-contact .grid p {
+    font-size: 8px; line-height: 1.45;
+  }
+  .dharadi-ref-contact .grid p.mt-2 { margin-top: 6px; }
+
+  /* Footer: two small top columns, newsletter full-width below, one-row form. */
+  .dharadi-ref-footer > div { padding: 31px 12px 18px; }
+  .dharadi-ref-footer > div > div:first-child {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 26px 12px; margin-bottom: 20px;
+  }
+  .dharadi-ref-footer .mobile-footer-logo {
+    width: 40px; height: 40px; margin-bottom: 10px;
+  }
+  .dharadi-ref-footer .mobile-footer-logo img { width: 31px; height: 31px; }
+  .dharadi-ref-footer h3 {
+    font-size: 14px; line-height: 1.3; margin-bottom: 2px;
+  }
+  .dharadi-ref-footer h4 {
+    font-size: 8px; line-height: 1.4;
+    letter-spacing: .09em; margin-bottom: 11px;
+  }
+  .dharadi-ref-footer p,
+  .dharadi-ref-footer ul a {
+    font-size: 8px; line-height: 1.55;
+  }
+  .dharadi-ref-footer .text-brand-gold.text-sm { font-size: 8px; margin-bottom: 10px; }
+  .dharadi-ref-footer ul { row-gap: 7px; }
+  .dharadi-ref-footer .col-span-2 { grid-column: 1 / -1; }
+  .dharadi-ref-footer .col-span-2 h4 { margin-bottom: 8px; }
+  .dharadi-ref-footer .col-span-2 p { margin-bottom: 12px; }
+  .dharadi-ref-footer form { flex-direction: row; gap: 6px; }
+  .dharadi-ref-footer input {
+    min-width: 0; min-height: 0; height: 32px;
+    padding: 7px 10px; border-radius: 9px; font-size: 9px;
+  }
+  .dharadi-ref-footer button {
+    padding: 7px 13px; border-radius: 9px; font-size: 9px;
+  }
+  .dharadi-ref-footer > div > div:last-child {
+    padding-top: 14px; flex-direction: row;
+    align-items: center; justify-content: space-between;
+    gap: 9px; text-align: left;
+  }
+  .dharadi-ref-footer > div > div:last-child p {
+    font-size: 7px; line-height: 1.4;
+  }
+
+  /* Match the original small horizontal WhatsApp pill, without obscuring cards. */
+  .dharadi-ref-whatsapp {
+    right: 11px; bottom: 12px; gap: 5px;
+    padding: 7px 10px; max-width: calc(100vw - 22px);
+  }
+  .dharadi-ref-whatsapp svg { width: 13px; height: 13px; }
+  .dharadi-ref-whatsapp span {
+    display: inline; font-size: 9px; line-height: 1.25;
+  }
+}
