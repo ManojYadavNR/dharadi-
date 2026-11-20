@@ -20,10 +20,10 @@ export default function Home() {
       <FeaturedProducts />
       <SocialProof />
       <TrustBar />
-      <About />
-      <FounderStory />
       <WhyChoose />
       <Process />
+      <About />
+      <FounderStory />
       <BrandIntention />
       <ProductBenefits />
       <Testimonials />
