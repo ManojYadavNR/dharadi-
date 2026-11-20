@@ -82,7 +82,7 @@ const items = [
 
 export default function Contact() {
   return (
-    <section id="contact" className="py-12 sm:py-20 lg:py-28 bg-white">
+    <section id="contact" className="dharadi-ref-contact py-12 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center mb-9 sm:mb-14">
           <h2 className="font-heading text-2xl sm:text-4xl font-semibold text-brand-dark">

@@ -30,7 +30,7 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="py-12 sm:py-20 lg:py-28 bg-brand-green-light/40">
+    <section className="dharadi-ref-process py-12 sm:py-20 lg:py-28 bg-brand-green-light/40">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center max-w-2xl mx-auto mb-9 sm:mb-14 lg:mb-20">
           <span className="text-brand-gold text-sm font-medium tracking-widest uppercase">

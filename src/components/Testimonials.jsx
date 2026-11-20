@@ -21,7 +21,7 @@ const reviews = [
 
 export default function Testimonials() {
   return (
-    <section className="py-9 sm:py-20 lg:py-28 bg-white">
+    <section className="dharadi-ref-testimonials py-9 sm:py-20 lg:py-28 bg-white">
       <div className="max-w-7xl mx-auto px-5 lg:px-8">
         <AnimateSection className="text-center mb-9 sm:mb-12 lg:mb-14">
           <h2 className="font-heading text-3xl sm:text-4xl font-semibold text-brand-dark">
@@ -30,7 +30,7 @@ export default function Testimonials() {
         </AnimateSection>
         <div aria-label="Customer reviews — swipe horizontally" className="flex min-w-0 overflow-x-auto snap-x snap-mandatory gap-2.5 sm:gap-6 lg:gap-8 pb-2 dharadi-swipe-rail">
           {reviews.map((review, i) => (
-            <AnimateSection key={review.author} delay={i * 0.08} className="min-w-0 flex-[0_0_calc((100%-1.25rem)/3)] sm:flex-[0_0_calc((100%-3rem)/3)] lg:flex-[0_0_calc((100%-4rem)/3)] snap-start">
+            <AnimateSection key={review.author} delay={i * 0.08} className="dharadi-ref-review-item min-w-0 flex-[0_0_calc((100%-1.25rem)/3)] sm:flex-[0_0_calc((100%-3rem)/3)] lg:flex-[0_0_calc((100%-4rem)/3)] snap-start">
               <article className="bg-brand-cream rounded-xl sm:rounded-3xl p-2.5 sm:p-8 lg:p-10 border border-brand-green/10 h-full flex flex-col text-center">
                 <Quote
                   size={20}
