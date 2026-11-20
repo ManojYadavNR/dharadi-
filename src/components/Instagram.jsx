@@ -25,12 +25,12 @@ import packet5 from "../assets/feed/feed2.jpg";
 import packet6 from "../assets/feed/feed3.jpg";
 
 const images = [
-  packet1,
-  packet2,
-  packet3,
-  packet4,
-  packet5,
-  packet6,
+  { src: packet1, alt: "Dharadi fresh oyster mushrooms in retail packaging" },
+  { src: packet2, alt: "Dharadi mushroom powder in a resealable pack" },
+  { src: packet3, alt: "Dharadi moringa powder in a resealable pack" },
+  { src: packet4, alt: "Dharadi cold-pressed groundnut oil bottle" },
+  { src: packet5, alt: "Fresh oyster mushrooms showcased at Dharadi" },
+  { src: packet6, alt: "Dharadi farm produce and the people behind the brand" },
 ];
 
 export default function Instagram() {
@@ -55,7 +55,7 @@ export default function Instagram() {
           </p>
         </AnimateSection>
         <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:grid-cols-6">
-          {images.map((src, i) => (
+          {images.map(({ src, alt }, i) => (
             <a
               key={i}
               href="https://instagram.com/dharadi_"
@@ -65,7 +65,7 @@ export default function Instagram() {
             >
               <img
                 src={src}
-                alt=""
+                alt={alt}
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"

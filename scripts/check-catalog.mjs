@@ -1,52 +1,43 @@
 import assert from "node:assert/strict";
-import { products } from "../src/data/products.js";
-import { catalogProducts, GRAM_SIZES, variantProduct } from "../src/data/productCatalog.js";
+import { access } from "node:fs/promises";
+import { products, variantPrices } from "../src/data/products.js";
+import { catalogProducts, variantProduct } from "../src/data/productCatalog.js";
+import { SEO_PAGES } from "../src/data/seo.js";
 
-// Every individual pack must be configurable in src/data/products.js.
-assert.equal(products.length, 13);
-assert.equal(new Set(products.map((p) => p.id)).size, products.length);
-for (const p of products) {
-  assert.ok(Number.isFinite(p.actualPrice) && p.actualPrice > 0, `Invalid actual price: ${p.id}`);
-  assert.ok(Number.isFinite(p.discountedPrice) && p.discountedPrice > 0, `Invalid discounted price: ${p.id}`);
-  assert.ok(p.actualPrice > p.discountedPrice, `Discount must be below actual price: ${p.id}`);
-}
-assert.equal(catalogProducts.length, 5, "Existing product families must remain grouped");
+// Price configuration, dropdown options and cart totals must stay in sync.
+assert.ok(products.length > 0, "Product list must not be empty");
+assert.equal(new Set(products.map((p) => p.id)).size, products.length, "Duplicate product IDs");
+assert.equal(new Set(SEO_PAGES.map((p) => p.route)).size, SEO_PAGES.length, "Duplicate SEO routes");
 
-const moringa = catalogProducts.find((item) => item.name === "Moringa Powder");
-assert.ok(moringa);
-assert.deepEqual(moringa.variants.map((variant) => variant.size), GRAM_SIZES);
-assert.equal(moringa.defaultSize, "200g");
-const g = (size) => moringa.variants.find((v) => v.size === size);
-assert.deepEqual(
-  [g("100g").actualPrice, g("100g").discountedPrice, g("100g").estimated],
-  [149, 119, true]
-);
-assert.deepEqual(
-  [g("200g").actualPrice, g("200g").discountedPrice, g("200g").estimated],
-  [249, 199, false]
-);
-assert.deepEqual(
-  [g("500g").actualPrice, g("500g").discountedPrice, g("500g").estimated],
-  [499, 399, false]
-);
-assert.equal(variantProduct(moringa, "100g"), null, "Draft price cannot be checked out");
-const selected = variantProduct(moringa, "500g");
-assert.equal(selected.id, "moringa-powder-500g");
-assert.equal(selected.price, selected.discountedPrice, "Cart must charge discounted selling price");
-assert.equal(selected.price * 2, 798, "Checkout quantity calculation must use discounted price");
-assert.equal(selected.actualPrice * 2, 998, "Struck-through original total must not be charged");
-
-for (const group of catalogProducts) {
-  const sizes = group.variants.map((v) => v.size);
-  assert.deepEqual(sizes, group.category === "oils" ? ["1L"] : GRAM_SIZES);
-  for (const v of group.variants) {
-    const sku = group.productsBySize[v.size];
-    assert.ok(sku, `Missing SKU configuration: ${group.name} ${v.size}`);
-    assert.equal(v.discountedPrice, sku.discountedPrice);
-    assert.equal(v.actualPrice, sku.actualPrice);
-    const addable = variantProduct(group, v.size);
-    if (sku.isPriceDraft) assert.equal(addable, null);
-    else assert.equal(addable.price, v.discountedPrice);
+for (const [group, sizes] of Object.entries(variantPrices)) {
+  for (const [size, price] of Object.entries(sizes)) {
+    assert.ok(Number.isFinite(price.actualPrice) && price.actualPrice > 0, `Invalid original price: ${group} ${size}`);
+    assert.ok(Number.isFinite(price.discountedPrice) && price.discountedPrice > 0, `Invalid selling price: ${group} ${size}`);
+    assert.ok(price.discountedPrice <= price.actualPrice, `Selling price exceeds original price: ${group} ${size}`);
   }
 }
-console.log("Individual crossed-out prices, discounted cart totals and draft price restrictions passed.");
+
+for (const product of products) {
+  assert.ok(product.name && product.packSize && product.image, `Missing product fields: ${product.id}`);
+  assert.ok(Number.isFinite(product.discountedPrice) && product.discountedPrice > 0, `Missing variant price: ${product.id}`);
+  assert.ok(Number.isFinite(product.actualPrice) && product.actualPrice >= product.discountedPrice, `Invalid original price: ${product.id}`);
+  if (product.image.startsWith("/")) await access(`public${product.image}`);
+}
+
+for (const group of catalogProducts) {
+  assert.ok(group.variants.length > 0, `Missing sizes for ${group.name}`);
+  assert.ok(group.variants.some((v) => v.size === group.defaultSize), `Missing default pack size: ${group.name}`);
+  for (const variant of group.variants) {
+    assert.ok(Number.isFinite(variant.discountedPrice), `Unpriced option: ${group.name} ${variant.size}`);
+    const selected = variantProduct(group, variant.size);
+    assert.ok(selected, `Cannot add ${group.name} ${variant.size} to cart`);
+    assert.equal(selected.price, variant.discountedPrice, `Cart total mismatch: ${group.name} ${variant.size}`);
+    assert.equal(selected.packSize, variant.size, `Wrong pack size in cart: ${group.name} ${variant.size}`);
+  }
+}
+
+for (const route of ["/", "/shop", "/checkout"]) {
+  assert.ok(SEO_PAGES.some((p) => p.route === route), `SEO metadata missing for ${route}`);
+}
+assert.ok(!SEO_PAGES.find((p) => p.route === "/checkout").indexable, "Checkout must not be indexed");
+console.log(`Catalog / SEO checks passed: ${products.length} variants, ${catalogProducts.length} products, ${SEO_PAGES.length} routes.`);

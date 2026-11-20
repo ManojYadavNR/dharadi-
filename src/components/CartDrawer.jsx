@@ -1,5 +1,5 @@
 import { X, Minus, Plus, Trash2 } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useCart } from "../context/CartContext";
 
@@ -24,7 +24,7 @@ export default function CartDrawer() {
             className="fixed inset-0 bg-brand-dark/40 z-[90] backdrop-blur-sm"
             onClick={() => setIsOpen(false)}
           />
-          <motion.aside
+          <m.aside
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
@@ -120,7 +120,7 @@ export default function CartDrawer() {
                 </Link>
               </div>
             )}
-          </motion.aside>
+          </m.aside>
         </>
       )}
     </AnimatePresence>

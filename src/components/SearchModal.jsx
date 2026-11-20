@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { X, Search } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { m, AnimatePresence } from "framer-motion";
 import { products } from "../data/products";
 import { useCart } from "../context/CartContext";
 
@@ -35,14 +35,14 @@ export default function SearchModal({ isOpen, onClose }) {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[100] flex items-start justify-center pt-20 sm:pt-24 px-3 sm:px-4">
-          <motion.div
+          <m.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 bg-brand-dark/50 backdrop-blur-sm"
             onClick={handleClose}
           />
-          <motion.div
+          <m.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
@@ -78,7 +78,7 @@ export default function SearchModal({ isOpen, onClose }) {
                     <button
                       type="button"
                       onClick={() => {
-                        addToCart(p);
+                        addToCart({ ...p, price: p.discountedPrice });
                         handleClose();
                       }}
                       className="w-full flex items-center gap-4 p-3 rounded-2xl hover:bg-white transition-colors text-left"
@@ -86,20 +86,23 @@ export default function SearchModal({ isOpen, onClose }) {
                       <img
                         src={p.image}
                         alt=""
+                        width={48}
+                        height={48}
+                        decoding="async"
                         className="w-12 h-12 rounded-xl object-cover"
                       />
                       <div>
                         <p className="font-medium text-brand-dark text-sm">
                           {p.name}
                         </p>
-                        <p className="text-brand-green text-sm">₹{p.price}</p>
+                        <p className="text-brand-green text-sm">₹{p.discountedPrice}</p>
                       </div>
                     </button>
                   </li>
                 ))
               )}
             </ul>
-          </motion.div>
+          </m.div>
         </div>
       )}
     </AnimatePresence>

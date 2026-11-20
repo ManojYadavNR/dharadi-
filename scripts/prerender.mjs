@@ -1,6 +1,7 @@
 import { readFile, writeFile, mkdir, rm } from "node:fs/promises";
 import { resolve, join } from "node:path";
 import { renderRoute } from "../.prerender-server/entry-server.js";
+import { SEO_PAGES } from "../src/data/seo.js";
 
 const root = resolve("dist");
 const template = await readFile(join(root, "index.html"), "utf8");
@@ -10,31 +11,7 @@ const escapeHtml = (value) =>
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;",
   })[char]);
 
-const pages = [
-  {
-    route: "/",
-    title: "Dharadi | Natural Food from Karnataka",
-    description:
-      "Discover Dharadi, a natural food brand from Karnataka. Explore our collection, learn our story, and contact us to order. From Soil to Soul.",
-    indexable: true,
-    schemaType: "WebPage",
-  },
-  {
-    route: "/shop",
-    title: "Shop Natural Food Products | Dharadi",
-    description:
-      "Explore the Dharadi natural food collection. Browse products and contact our team for availability and delivery.",
-    indexable: true,
-    schemaType: "CollectionPage",
-  },
-  {
-    route: "/checkout",
-    title: "Checkout | Dharadi",
-    description: "Review your Dharadi cart and delivery details.",
-    indexable: false,
-    schemaType: "WebPage",
-  },
-];
+const pages = SEO_PAGES;
 
 const replace = (html, pattern, next, label) => {
   if (!pattern.test(html)) throw new Error(`Cannot update ${label} in built HTML`);
@@ -143,7 +120,7 @@ await writeFile(
 );
 await writeFile(
   join(root, "robots.txt"),
-  `User-agent: *\nAllow: /\nDisallow: /checkout\n\nSitemap: ${site}/sitemap.xml\n`,
+  `User-agent: *\nAllow: /\n\nSitemap: ${site}/sitemap.xml\n`,
   "utf8"
 );
 await rm(resolve(".prerender-server"), { recursive: true, force: true });

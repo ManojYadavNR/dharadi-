@@ -1,5 +1,6 @@
 import { lazy, Suspense, useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LazyMotion, domAnimation } from "framer-motion";
 import { CartProvider } from "./context/CartContext";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -17,6 +18,7 @@ export default function App() {
 
   return (
     <CartProvider>
+      <LazyMotion features={domAnimation}>
       <BrowserRouter>
         <SeoMeta />
         <Header onSearchOpen={() => setSearchOpen(true)} />
@@ -32,6 +34,7 @@ export default function App() {
         <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
         <WhatsAppButton />
       </BrowserRouter>
+      </LazyMotion>
     </CartProvider>
   );
 }

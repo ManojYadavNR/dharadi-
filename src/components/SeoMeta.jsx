@@ -1,26 +1,10 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { SEO_BY_ROUTE } from "../data/seo.js";
 
 // Use VITE_SITE_URL once a verified custom domain is connected.
 const siteUrl = (import.meta.env.VITE_SITE_URL || "https://dharadi.netlify.app").replace(/\/$/, "");
 
-const pageSeo = {
-  "/": {
-    title: "Dharadi | Natural Food from Karnataka",
-    description: "Discover Dharadi, a natural food brand from Karnataka. Explore our collection, learn our story, and contact us to order. From Soil to Soul.",
-    index: true,
-  },
-  "/shop": {
-    title: "Shop Natural Food Products | Dharadi",
-    description: "Explore the Dharadi natural food collection. Browse products and contact our team for availability and delivery.",
-    index: true,
-  },
-  "/checkout": {
-    title: "Checkout | Dharadi",
-    description: "Review your Dharadi cart and delivery details.",
-    index: false,
-  },
-};
 
 function updateMeta(selector, attribute, value) {
   let element = document.head.querySelector(selector);
@@ -38,11 +22,11 @@ export default function SeoMeta() {
 
   useEffect(() => {
     const normalizedPath = pathname.replace(/\/+$/, "") || "/";
-    const page = pageSeo[normalizedPath] || { ...pageSeo["/"], index: false };
+    const page = SEO_BY_ROUTE[normalizedPath] || { ...SEO_BY_ROUTE["/"], indexable: false };
     const url = siteUrl + (normalizedPath === "/" ? "/" : normalizedPath);
     document.title = page.title;
     updateMeta('meta[name="description"]', "name:description", page.description);
-    updateMeta('meta[name="robots"]', "name:robots", page.index ? "index, follow" : "noindex, nofollow");
+    updateMeta('meta[name="robots"]', "name:robots", page.indexable ? "index, follow" : "noindex, nofollow");
     updateMeta('meta[property="og:title"]', "property:og:title", page.title);
     updateMeta('meta[property="og:description"]', "property:og:description", page.description);
     updateMeta('meta[property="og:url"]', "property:og:url", url);
@@ -60,7 +44,7 @@ export default function SeoMeta() {
     if (script) {
       const pageSchema = {
         "@context": "https://schema.org",
-        "@type": normalizedPath === "/shop" ? "CollectionPage" : "WebPage",
+        "@type": page.schemaType,
         name: page.title,
         url,
         description: page.description,
